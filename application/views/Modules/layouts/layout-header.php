@@ -5,10 +5,21 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<title>:: <?=$page_tittle?> - Klinik Admin :: Integrated Clinick Information System</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap/css/bootstrap.min.css"/>
+<title>:: <?=$page_tittle?> - Klinik Admin :: Integrated Clinik Information System</title>
+<link rel="icon" href="<?=base_url()?>assets/favicon.ico" type="image/x-icon">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" type="text/css">
+<!-- Dropzone Css -->
+<link href="<?=base_url()?>assets/plugins/dropzone/dropzone.css" rel="stylesheet">
+<!-- Bootstrap Material Datetime Picker Css -->
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"/>
+<!-- Select 2 -->
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/select2/dist/css/select2.min.css">
+<!-- Wait Me Css -->
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/waitme/waitMe.css" />
+<!-- Bootstrap Select Css -->
+<link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-select/css/bootstrap-select.css"/>
 <link rel="stylesheet" href="<?=base_url()?>assets/plugins/morrisjs/morris.css"/>
 <!-- Custom Css -->
 <link rel="stylesheet" href="<?=base_url()?>assets/css/main.css"/>
@@ -50,41 +61,14 @@
 </ul>
 
 <!-- Morphing Search  -->
-<div id="morphsearch" class="morphsearch">
+<!-- <div id="morphsearch" class="morphsearch">
     <form class="morphsearch-form">
         <div class="form-group m-0">
             <input value="" type="search" placeholder="Explore Swift..." class="form-control morphsearch-input" />
             <button class="morphsearch-submit" type="submit">Search</button>
         </div>
     </form>
-    <div class="morphsearch-content">
-        <div class="dummy-column">
-            <h2>People</h2>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar1.jpg" alt=""/><h3>Sara Soueidan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar2.jpg" alt=""/><h3>Rachel Smith</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar3.jpg" alt=""/><h3>Peter Finlan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar4.jpg" alt=""/><h3>Patrick Cox</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar5.jpg" alt=""/><h3>Tim Holman</h3></a>
-        </div>
-        <div class="dummy-column">
-            <h2>Popular</h2>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar5.jpg" alt=""/><h3>Sara Soueidan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar4.jpg" alt=""/><h3>Rachel Smith</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar1.jpg" alt=""/><h3>Peter Finlan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar2.jpg" alt=""/><h3>Patrick Cox</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar3.jpg" alt=""/><h3>Tim Holman</h3></a>
-        </div>
-        <div class="dummy-column">
-            <h2>Recent</h2>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar1.jpg" alt=""/><h3>Sara Soueidan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar5.jpg" alt=""/><h3>Rachel Smith</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar1.jpg" alt=""/><h3>Peter Finlan</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar4.jpg" alt=""/><h3>Patrick Cox</h3></a>
-            <a class="dummy-media-object" href="javascript:void(0);"><img class="rounded" src="assets/images/xs/avatar2.jpg" alt=""/><h3>Tim Holman</h3></a>
-        </div>
-    </div>    
-    <span class="morphsearch-close"></span>
-</div>
+</div> -->
 
 <!-- Top Bar -->
 <nav class="navbar clearHeader">
@@ -220,7 +204,7 @@
     <aside id="leftsidebar" class="sidebar"> 
         <!-- User Info -->
         <div class="user-info">
-            <div class="admin-image"> <img src="assets/images/random-avatar7.jpg" alt=""> </div>
+            <div class="admin-image"> <img src="<?=base_url()?>assets/images/random-avatar7.jpg" alt=""> </div>
             <div class="admin-action-info"> <span>Welcome</span>
                 <h3>Dr. John</h3>
                 <ul>

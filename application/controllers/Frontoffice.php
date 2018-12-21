@@ -10,4 +10,44 @@ class Frontoffice extends CI_Controller {
 
 		$this->load->view('modules/front_office/index', $data);
 	}
+
+	public function dokter()
+	{
+		$data['page_tittle'] = 'Dashboard Front Office';
+		$data['page_val'] = 'dash';
+
+		$this->load->view('modules/front_office/v_dokter', $data);
+	}
+
+	public function layanan()
+	{
+		$data['page_tittle'] = 'Dashboard Front Office';
+		$data['page_val'] = 'dash';
+
+		$this->load->view('modules/front_office/v_layanan', $data);
+	}
+
+	public function jaminan()
+	{
+		$data['page_tittle'] = 'Dashboard Front Office';
+		$data['page_val'] = 'dash';
+
+		$this->load->view('modules/front_office/v_jaminan', $data);
+	}
+
+	public function admin()
+	{
+		$data['page_tittle'] = 'Dashboard Front Office';
+		$data['page_val'] = 'dash';
+
+		$this->load->view('modules/front_office/v_admin', $data);
+	}
+
+	public function jadwal()
+	{
+		$data['page_tittle'] = 'Dashboard Front Office';
+		$data['page_val'] = 'dash';
+
+		$this->load->view('modules/front_office/v_jadwaldokter', $data);
+	}
 }
