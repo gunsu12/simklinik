@@ -37,6 +37,7 @@ class Frontoffice extends CI_Controller {
 				'dr_tlp' => $_POST['dr_tlp'],
 				'dr_alamat' => $_POST['dr_alamat'],
 				'dr_email' => $_POST['dr_email']
+				
 			);
 
 			// input data ke database
@@ -62,6 +63,7 @@ class Frontoffice extends CI_Controller {
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
 		$data['page_val'] = 'dash';
+		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_layanan', $data);
 	}
@@ -70,6 +72,7 @@ class Frontoffice extends CI_Controller {
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
 		$data['page_val'] = 'dash';
+		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_jaminan', $data);
 	}
@@ -78,6 +81,7 @@ class Frontoffice extends CI_Controller {
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
 		$data['page_val'] = 'dash';
+		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_admin', $data);
 	}
@@ -86,6 +90,7 @@ class Frontoffice extends CI_Controller {
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
 		$data['page_val'] = 'dash';
+		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_jadwaldokter', $data);
 	}

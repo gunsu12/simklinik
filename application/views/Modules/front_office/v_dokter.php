@@ -178,9 +178,9 @@
 		    	var obj = JSON.parse(data);
 
 		        if (obj.status == 'ok') {
-
+		        	alert(obj.message);
 		        }else{
-		        	
+		        	alert(obj.message);
 		        }
 		    })
 		    .fail(function (jqXHR, textStatus, error) {
