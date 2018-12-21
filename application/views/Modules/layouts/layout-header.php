@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <p>Please wait...</p>
+        <p>Mohon tunggu...</p>
     </div>
 </div>
 
@@ -205,7 +205,7 @@
         <!-- User Info -->
         <div class="user-info">
             <div class="admin-image"> <img src="<?=base_url()?>assets/images/random-avatar7.jpg" alt=""> </div>
-            <div class="admin-action-info"> <span>Welcome</span>
+            <div class="admin-action-info"> <span>Selamat Datang</span>
                 <h3>Dr. John</h3>
                 <ul>
                     <li><a href="mail-inbox.html" title="Go to Inbox"><i class="zmdi zmdi-email"></i></a></li>
@@ -215,10 +215,10 @@
                 </ul>
             </div>
             <div class="quick-stats">
-                <h5>Today Report</h5>
+                <h5>Laporan hari ini</h5>
                 <ul>
-                    <li><span>16<i>Patient</i></span></li>
-                    <li><span>20<i>Panding</i></span></li>
+                    <li><span>16<i>Pasien</i></span></li>
+                    <li><span>20<i>Antrian</i></span></li>
                     <li><span>04<i>Visit</i></span></li>
                 </ul>
             </div>

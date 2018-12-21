@@ -26,8 +26,8 @@
 
 	$('#date').bootstrapMaterialDatePicker({ weekStart : 1, time: false, format : 'DD/MM/YYYY'});
 	$('#datetime').bootstrapMaterialDatePicker({ format : 'dddd DD MMMM YYYY - HH:mm' });
-	$('#time_open').bootstrapMaterialDatePicker({ date: false });
-	$('#time_close').bootstrapMaterialDatePicker({ date: false });
+	$('#time_open').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm'  });
+	$('#time_close').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm' });
 </script>
 
 </body>

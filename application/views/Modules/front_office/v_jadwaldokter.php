@@ -35,7 +35,7 @@
                         <div role="tabpanel" class="tab-pane in active" id="home" > 
                         	<div class="row clearfix">
                         		<div class="col-sm-2">
-							        <button type="button" class="btn  btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#caridokterModal"><i class="material-icons">search</i> Cari Nama Dokter</button>
+							        <button type="button" class="btn  btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#caridokterModal">Cari Nama Dokter</button>
 							    </div>
 							    <div class="col-sm-6">
 							        <div class="form-group">
@@ -57,18 +57,25 @@
 							
 							<div class="row clearfix">
 							    <table class="table table-hover">
+							    <tr>
+							    	<th colspan="7" style="text-align:center;">Jadwal Praktek Dokter</th>
+							    </tr>
                         		<tr>
                         			<th style="width:5%; text-align:center;">No</th>
-                        			<th>Kode Dokter</th>
-                        			<th>Nama Dokter</th>
-                        			<th>Spesialist</th>
+                        			<th>Hari</th>
+                        			<th>Jam Mulai</th>
+                        			<th>Jam Selesai</th>
+                        			<th>Maks Pasien</th>
+                        			<th>Keterangan</th>
                         			<th style="width:5%; text-align:center;">Action</th>
                         		</tr>
                         		<tr>
                         			<td style="width:5%; text-align:center;">1</td>
-                        			<td>DP0001</td>
-                        			<td>Pande Wira Andika</td>
-                        			<td>Komputer</td>
+                        			<td>Senin</td>
+                        			<td>08.00</td>
+                        			<td>10.00</td>
+                        			<td>5 pasien</td>
+                        			<td>Pagi Siang</td>
                         			<td style="text-align:center;"><a href="javascript:void(0);" class="edit"><i class="zmdi zmdi-edit"></i></a></td>
                         		</tr>
                         		</table>
