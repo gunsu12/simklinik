@@ -31,79 +31,80 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane in active" id="home" > 
-                        	<div class="row clearfix">
-                        		<div class="col-sm-3">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Kode Dokter">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-3">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Nama Singkat">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-6">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Nama Panggilan">
-							            </div>
-							        </div>
-							    </div>
-							</div>
-							<div class="row clearfix">
-							    <div class="col-sm-3">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="datepicker form-control" placeholder="Tanggal Lahir" id="datetime">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-3">
-							        <div class="form-group drop-custum">
-							            <select class="form-control show-tick">
-							                <option value="">-- Jenis Kelamin --</option>
-							                <option value="10">Male</option>
-							                <option value="20">Female</option>
-							            </select>
-							        </div>
-							    </div>
-							    <div class="col-sm-3">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Spesialist">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-3">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="No Telepon">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-6">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Alamat">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-6">
-							        <div class="form-group">
-							            <div class="form-line">
-							                <input type="text" class="form-control" placeholder="Email">
-							            </div>
-							        </div>
-							    </div>
-							    <div class="col-sm-12">
-							        <button type="submit" class="btn btn-raised g-bg-cyan">Simpan</button>
-							        <button type="submit" class="btn btn-raised">Batal</button>
-							    </div>
-							</div>		
+                        	<form action="" method="POST">
+	                        	<div class="row clearfix">
+	                        		<div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_nama" class="form-control" placeholder="Kode Dokter" id="dr_nama">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_nama_singkat" class="form-control" placeholder="Nama Singkat" id="dr_nama_singkat">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-6">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_nama_lengkap" class="form-control" placeholder="Nama Panggilan" id="dr_nama_lengkap">
+								            </div>
+								        </div>
+								    </div>
+								</div>
+								<div class="row clearfix">
+								    <!-- <div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_tgl_lhr" class="datepicker form-control" placeholder="Tanggal Lahir" id="datetime" id="dr_tgl_lhr">
+								            </div>
+								        </div>
+								    </div> -->
+								    <!-- <div class="col-sm-3">
+								        <div class="form-group drop-custum">
+								            <select class="form-control show-tick">
+								                <option value="">-- Jenis Kelamin --</option>
+								                <option value="10">Male</option>
+								                <option value="20">Female</option>
+								            </select>
+								        </div>
+								    </div> -->
+								    <div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_spesialist" class="form-control" placeholder="Spesialist" id="dr_spesialist">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_tlp" class="form-control" placeholder="No Telepon" id="dr_tlp">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-6">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_alamat" class="form-control" placeholder="Alamat" id="dr_alamat">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-6">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_email" class="form-control" placeholder="Email" id="dr_email">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-12">
+								        <button id="submit" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
+								    </div>
+								</div>
+                        	</form>		
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile"> 
                         	<table class="table table-hover">
@@ -152,3 +153,40 @@
 </section>
 
 <?php $this->load->view('./modules/layouts/layout-footer'); ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		$('#submit').click(function(){
+
+			var dr_kode = $('#dr_kode').val();
+			var dr_nama_singkat = $('#dr_nama_singkat').val();
+			var dr_nama_lengkap = $('#dr_nama_lengkap').val();
+			var dr_spesialist = $('#dr_spesialist').val();
+			var dr_tlp = $('#dr_tlp').val();
+			var dr_alamat = $('#dr_alamat').val();
+			var dr_email = $('#dr_email').val();
+
+			var dataSerialize = 'dr_kode='+dr_kode+'&dr_nama='+dr_nama_singkat+'dr_nama_lengkap='+dr_nama_lengkap+'dr_gelar='+dr_spesialist+'dr_tlp='+dr_tlp+'dr_alamat='+dr_alamat+'dr_email='+dr_email;
+
+			$.ajax({
+		        url: '<?=base_url()?>frontoffice/dokter_add',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: dataSerialize
+		    })
+		    .done(function(data) {
+		    	var obj = JSON.parse(data);
+
+		        if (obj.status == 'ok') {
+
+		        }else{
+		        	
+		        }
+		    })
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
+		})
+
+	});
+</script>
