@@ -22,7 +22,7 @@
 <script src="<?=base_url()?>assets/plugins/select2/dist/js/select2.full.min.js"></script><!-- Select2 -->
 
 <script type="text/javascript">
-	$('.select2').select2()
+	// $('.select2').select2()
 
 	$('#date').bootstrapMaterialDatePicker({ weekStart : 1, time: false, format : 'DD/MM/YYYY'});
 	$('#datetime').bootstrapMaterialDatePicker({ format : 'YYYY-mm-DD' });

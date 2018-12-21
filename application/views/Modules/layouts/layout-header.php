@@ -300,7 +300,7 @@
                     </div>
                     <h6>Recent</h6>
                     <ul>
-                        <li class="online">
+                        <!-- <li class="online">
                             <div class="media">
                                 <a href="javascript:void(0);"><img class="media-object " src="assets/images/xs/avatar1.jpg" alt=""></a>
                                 <div class="media-body">
@@ -359,7 +359,7 @@
                                     <span class="badge badge-outline status"></span>
                                 </div>
                             </div>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>

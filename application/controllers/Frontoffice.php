@@ -3,6 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Frontoffice extends CI_Controller {
 
+	public function __construct() {
+	    
+	    parent::__construct();
+	    $this->load->model('M_master');
+		
+		 // if ($this->session->userdata('user_name') == "") {
+	  //   	redirect('');
+	  //   }
+	}
+
 	public function index()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
@@ -27,6 +37,7 @@ class Frontoffice extends CI_Controller {
 
 		if (isset($_POST)) {
 			
+			//print_r($_POST);
 			// tangkap nilai dari post
 			$data_dokter = array(
 
@@ -58,6 +69,8 @@ class Frontoffice extends CI_Controller {
 		}else{
 			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
 		}
+
+		echo json_encode($response);
 	}
 
 	public function layanan()

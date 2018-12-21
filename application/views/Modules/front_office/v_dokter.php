@@ -31,19 +31,19 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane in active" id="home" > 
-                        	<form action="" method="POST">
+                        	<!-- <form action="" method="POST"> -->
 	                        	<div class="row clearfix">
 	                        		<div class="col-sm-3">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="dr_nama" class="form-control" placeholder="Kode Dokter" id="dr_nama">
+								                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode">
 								            </div>
 								        </div>
 								    </div>
 								    <div class="col-sm-3">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="dr_nama_singkat" class="form-control" placeholder="Nama Singkat" id="dr_nama_singkat">
+								                <input type="text" name="dr_nama" class="form-control" placeholder="Nama Singkat" id="dr_nama">
 								            </div>
 								        </div>
 								    </div>
@@ -104,7 +104,7 @@
 								        <button id="submit" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
 								    </div>
 								</div>
-                        	</form>		
+                        	<!-- </form>		 -->
                         </div>
                         <div role="tabpanel" class="tab-pane" id="profile"> 
                         	<table class="table table-hover">
@@ -158,35 +158,80 @@
 
 		$('#submit').click(function(){
 
+			// alert('a');
 			var dr_kode = $('#dr_kode').val();
-			var dr_nama_singkat = $('#dr_nama_singkat').val();
+			var dr_nama = $('#dr_nama').val();
 			var dr_nama_lengkap = $('#dr_nama_lengkap').val();
 			var dr_spesialist = $('#dr_spesialist').val();
 			var dr_tlp = $('#dr_tlp').val();
 			var dr_alamat = $('#dr_alamat').val();
 			var dr_email = $('#dr_email').val();
 
-			var dataSerialize = 'dr_kode='+dr_kode+'&dr_nama='+dr_nama_singkat+'dr_nama_lengkap='+dr_nama_lengkap+'dr_gelar='+dr_spesialist+'dr_tlp='+dr_tlp+'dr_alamat='+dr_alamat+'dr_email='+dr_email;
+			if (dr_kode != '') {
 
+				var validasi_kodeDr = validasi_kodeDr(dr_kode);
+
+				if (validasi_kodeDr == false) {
+					alert('kode dokter sudah digunakan, gunakan yang lain');
+				}else{
+					var dataSerialize = 'dr_kode='+dr_kode+'&dr_nama='+dr_nama+'&dr_nama_lengkap='+dr_nama_lengkap+'&dr_gelar='+dr_spesialist+'&dr_tlp='+dr_tlp+'&dr_alamat='+dr_alamat+'&dr_email='+dr_email;
+
+					$.ajax({
+				        url: '<?=base_url()?>frontoffice/dokter_add',
+				        type: 'POST',
+				        dataType: 'text',
+				        data: dataSerialize
+				    })
+				    .done(function(data) {
+
+			        	$('#dr_kode').val('');
+						$('#dr_nama').val('');
+						$('#dr_nama_lengkap').val('');
+						$('#dr_spesialist').val('');
+						$('#dr_tlp').val('');
+						$('#dr_alamat').val('');
+						$('#dr_email').val('');
+
+				    	var obj = JSON.parse(data);
+
+				    	console.log(obj);
+
+				        if (obj.status == 'ok') {
+				        	alert(obj.message);
+				        }else{
+				        	alert(obj.message);
+				        }
+				    })
+				    .fail(function (jqXHR, textStatus, error) {
+				          console.log("Post error: " + error);
+				    });
+				}
+			}else{
+				alert('nedd to fill dr kode');
+			}
+		});
+
+		function validasi_kodeDr(dr_kode)
+		{
 			$.ajax({
-		        url: '<?=base_url()?>frontoffice/dokter_add',
+				 url: '<?=base_url()?>frontoffice/dokter_validasi_kode',
 		        type: 'POST',
 		        dataType: 'text',
-		        data: dataSerialize
-		    })
-		    .done(function(data) {
-		    	var obj = JSON.parse(data);
+		        data: 'dr_kode='+dr_kode
+			})
+			.done(function(data) {
+				var obj = JSON.parse(data);
+		    	console.log(obj);
 
-		        if (obj.status == 'ok') {
-		        	alert(obj.message);
-		        }else{
-		        	alert(obj.message);
-		        }
+				if (obj.status == false) {
+					return false;
+				}else{
+					return true;
+				}
 		    })
 		    .fail(function (jqXHR, textStatus, error) {
-		          console.log("Post error: " + error);
+		        console.log("Post error: " + error);
 		    });
-		})
-
+		}
 	});
 </script>
