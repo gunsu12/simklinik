@@ -7,6 +7,7 @@ class Frontoffice extends CI_Controller {
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
 		$data['page_val'] = 'dash';
+		$data['page_tree'] = 'dash';
 
 		$this->load->view('modules/front_office/index', $data);
 	}
@@ -14,7 +15,8 @@ class Frontoffice extends CI_Controller {
 	public function dokter()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
-		$data['page_val'] = 'dash';
+		$data['page_val'] = 'fo';
+		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_dokter', $data);
 	}
