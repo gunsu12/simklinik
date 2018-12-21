@@ -250,11 +250,22 @@
                         <li><a href="">Doctor Profile</a></li>
                     </ul>
                 </li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i></i><span>Setting</span> </a>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i><span>Setting</span> </a>
                     <ul class="ml-menu">
                         <li><a href="">All Doctors</a></li>
                         <li><a href="">Add Doctor</a></li>                       
                         <li><a href="">Doctor Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i><span>Setting</span> </a>
+                    <ul class="ml-menu">
+                        <li><a href="javascript:void(0);" class="menu-toggle">Level 1 </a>
+                                <ul class="ml-menu">   
+                                <li><a href="">Level 2</a></li>
+                                </ul>
+                            
+                        </li>
+                        <li><a href="">Add Doctor</a></li>  
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account-add"></i><span>Help</span> </a></li>
