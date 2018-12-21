@@ -36,15 +36,16 @@ class Frontoffice extends CI_Controller {
 				'dr_gelar' => $_POST['dr_gelar'],
 				'dr_tlp' => $_POST['dr_tlp'],
 				'dr_alamat' => $_POST['dr_alamat'],
-				'dr_email' => $_POST['dr_email']
-				
+				'dr_email' => $_POST['dr_email'],
+				'dr_status' => 'aktif',
+				'dr_insertedDate' => date('y-m-d')
 			);
 
 			// input data ke database
 			$input_dokter = $this->M_master->insertDokter($data_dokter);
 
 			// kondisi seletah response dari model
-			if ($input_dokter) {
+			if ($input_dokter == TRUE) {
 				
 				$response = array ('status' => 'oke', 'message' => 'data dokter berhasil disimpan');
 
@@ -62,7 +63,7 @@ class Frontoffice extends CI_Controller {
 	public function layanan()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
-		$data['page_val'] = 'dash';
+		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_layanan', $data);
@@ -71,7 +72,7 @@ class Frontoffice extends CI_Controller {
 	public function jaminan()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
-		$data['page_val'] = 'dash';
+		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_jaminan', $data);
@@ -80,7 +81,7 @@ class Frontoffice extends CI_Controller {
 	public function admin()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
-		$data['page_val'] = 'dash';
+		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_admin', $data);
@@ -89,7 +90,7 @@ class Frontoffice extends CI_Controller {
 	public function jadwal()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
-		$data['page_val'] = 'dash';
+		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_jadwaldokter', $data);
