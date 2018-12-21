@@ -35,7 +35,7 @@
                         <div role="tabpanel" class="tab-pane in active" id="home" > 
                         	<div class="row clearfix">
                         		<div class="col-sm-2">
-							        <button type="button" class="btn  btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#caridokterModal">Cari Nama Dokter</button>
+							        <button type="button" class="btn btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#caridokterModal">Cari Nama Dokter</button>
 							    </div>
 							    <div class="col-sm-6">
 							        <div class="form-group">
