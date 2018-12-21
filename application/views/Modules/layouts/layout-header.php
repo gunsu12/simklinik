@@ -231,7 +231,13 @@
                 <li <?php if ($page_val == 'dash') { echo 'class="active open"'; } ?>><a href="index-2.html"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>                                               
                 <li <?php if ($page_val == 'fo') { echo 'class="active open"'; } ?>><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar-check"></i><span>Front Office</span> </a>
                     <ul class="ml-menu">
-                        <li <?php if ($page_tree == 'master') { echo 'class="active"'; } ?>><a href="">Master Data</a></li>
+                        <li <?php if ($page_tree == 'master') ?>><a href="javascript:void(0);" class="menu-toggle">Master Data</a>
+                            <ul class="ml-menu">   
+                                <li><a href="">Dokter</a></li>
+                                <li><a href="">Layanan</a></li>
+                                <li><a href="">Jadwal Dokter</a></li>
+                            </ul>
+                        </li>    
                         <li <?php if ($page_tree == 'registrasi') { echo 'class="active"'; } ?>><a href="">Registrasi</a></li>
                         <li <?php if ($page_tree == 'booking') { echo 'class="active"'; } ?>><a href="">Janji Poliklinik</a></li>
                     </ul>
@@ -255,17 +261,6 @@
                         <li><a href="">All Doctors</a></li>
                         <li><a href="">Add Doctor</a></li>                       
                         <li><a href="">Doctor Profile</a></li>
-                    </ul>
-                </li>
-                <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-settings"></i><span>Setting</span> </a>
-                    <ul class="ml-menu">
-                        <li><a href="javascript:void(0);" class="menu-toggle">Level 1 </a>
-                                <ul class="ml-menu">   
-                                <li><a href="">Level 2</a></li>
-                                </ul>
-                            
-                        </li>
-                        <li><a href="">Add Doctor</a></li>  
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-account-add"></i><span>Help</span> </a></li>
