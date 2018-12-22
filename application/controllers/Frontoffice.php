@@ -31,6 +31,26 @@ class Frontoffice extends CI_Controller {
 		$this->load->view('modules/front_office/v_dokter', $data);
 	}
 
+	public function dokter_validasi_kode()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_dokter = $this->M_master->getDataDokter(array('dr_kode' => $_POST['dr_kode']));
+
+			if ($data_dokter != FALSE) {
+				$response = array('status' => 'true', 'message' => 'data dokter ditemukan');
+			}else{
+				$response = array('status' => 'false', 'message' => 'data dokter tidak ditemukan');
+			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function dokter_add()
 	{
 		$response = array('status' => '', 'message' => '');
@@ -107,5 +127,14 @@ class Frontoffice extends CI_Controller {
 		$data['page_tree'] = 'master';
 
 		$this->load->view('modules/front_office/v_jadwaldokter', $data);
+	}
+
+	public function registrasi()
+	{
+		$data['page_tittle'] = 'Pendaftaran Front Office';
+		$data['page_val'] = 'fo';
+		$data['page_tree'] = 'registrasi';
+
+		//$this->load->view('modules/front_office/v_jadwaldokter', $data);
 	}
 }

@@ -166,10 +166,33 @@
 			var dr_tlp = $('#dr_tlp').val();
 			var dr_alamat = $('#dr_alamat').val();
 			var dr_email = $('#dr_email').val();
+			var validasi_kodeDr = false;
+			
+			var validasi_kodeDr = function validasi_kodeDr(dr_kode)
+			{
+				$.ajax({
+					 url: '<?=base_url()?>frontoffice/dokter_validasi_kode',
+			        type: 'POST',
+			        dataType: 'text',
+			        data: 'dr_kode='+dr_kode
+				})
+				.done(function(data) {
+					var obj = JSON.parse(data);
+			    	console.log(obj);
 
+					if (obj.status == false) {
+						return false;
+					}else{
+						return true;
+					}
+			    })
+			    .fail(function (jqXHR, textStatus, error) {
+			        console.log("Post error: " + error);
+			    });
+			}
+			
 			if (dr_kode != '') {
 
-				var validasi_kodeDr = validasi_kodeDr(dr_kode);
 
 				if (validasi_kodeDr == false) {
 					alert('kode dokter sudah digunakan, gunakan yang lain');
@@ -211,27 +234,6 @@
 			}
 		});
 
-		function validasi_kodeDr(dr_kode)
-		{
-			$.ajax({
-				 url: '<?=base_url()?>frontoffice/dokter_validasi_kode',
-		        type: 'POST',
-		        dataType: 'text',
-		        data: 'dr_kode='+dr_kode
-			})
-			.done(function(data) {
-				var obj = JSON.parse(data);
-		    	console.log(obj);
-
-				if (obj.status == false) {
-					return false;
-				}else{
-					return true;
-				}
-		    })
-		    .fail(function (jqXHR, textStatus, error) {
-		        console.log("Post error: " + error);
-		    });
-		}
+		
 	});
 </script>
