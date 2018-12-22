@@ -135,6 +135,6 @@ class Frontoffice extends CI_Controller {
 		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'registrasi';
 
-		//$this->load->view('modules/front_office/v_jadwaldokter', $data);
+		$this->load->view('modules/front_office/v_registrasi', $data);
 	}
 }
