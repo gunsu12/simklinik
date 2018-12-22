@@ -13,7 +13,7 @@
                     <ul class="nav nav-tabs">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Registrasi</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile">List Antrian Pasien</a></li>
-                        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages">MESSAGES</a></li> -->
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#messages">List Booking Pasien</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">SETTINGS</a></li> -->
                     </ul>    
 						<ul class="header-dropdown m-r--5">
@@ -33,29 +33,63 @@
                         <div role="tabpanel" class="tab-pane in active" id="home" > 
                         	<!-- <form action="" method="POST"> -->
 	                        	<div class="row clearfix">
-	                        		<div class="col-sm-3">
+	                        		<div class="col-sm-2">
+								            <button type="button" class="btn btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#">Cari Pasien</button>
+								    </div>
+								    <div class="col-sm-2">
+								            <button type="button" class="btn btn-raised g-bg-cyan btn-block btn-lg waves-effect" data-toggle="modal" data-target="#">Kode Booking</button>
+								    </div>
+								    <div class="col-sm-2">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode">
+								                <input type="text" name="kode_booking" class="form-control" placeholder="Kode Booking" id="kode_booking">
 								            </div>
 								        </div>
 								    </div>
 								    <div class="col-sm-3">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="dr_nama" class="form-control" placeholder="Nama Singkat" id="dr_nama">
+								                <input type="text" name="no_register" class="form-control" placeholder="No Register" id="no_register">
 								            </div>
 								        </div>
 								    </div>
-								    <div class="col-sm-6">
+								    <div class="col-sm-3">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="dr_nama_lengkap" class="form-control" placeholder="Nama Panggilan" id="dr_nama_lengkap">
+								                <input type="text" name="rekam_medis" class="form-control" placeholder="No Rekam Medis" id="rekam_medis">
 								            </div>
 								        </div>
 								    </div>
 								</div>
 								<div class="row clearfix">
+									<div class="col-sm-3">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="layanan" class="form-control" placeholder="Layanan" id="layanan">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-4">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="dr_spesialist" class="form-control" placeholder="Dokter Spesialist" id="dr_spesialist">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-3">
+								        <div class="form-group"  data-toggle="modal" data-target="#test">
+								            <div class="form-line">
+								                <input type="text" name="jaminan" class="form-control" placeholder="Jaminan" id="jaminan">
+								            </div>
+								        </div>
+								    </div>
+								    <div class="col-sm-2">
+								        <div class="form-group">
+								            <div class="form-line">
+								                <input type="text" name="admin" class="form-control" placeholder="Administrasi" id="admin">
+								            </div>
+								        </div>
+								    </div>
 								    <!-- <div class="col-sm-3">
 								        <div class="form-group">
 								            <div class="form-line">
@@ -86,7 +120,7 @@
 								            </div>
 								        </div>
 								    </div>
-								    <div class="col-sm-6">
+								   <!--  <div class="col-sm-6">
 								        <div class="form-group">
 								            <div class="form-line">
 								                <input type="text" name="dr_alamat" class="form-control" placeholder="Alamat" id="dr_alamat">
@@ -99,7 +133,7 @@
 								                <input type="text" name="dr_email" class="form-control" placeholder="Email" id="dr_email">
 								            </div>
 								        </div>
-								    </div>
+								    </div> -->
 								    <div class="col-sm-12">
 								        <button id="submit" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
 								    </div>
@@ -150,6 +184,40 @@
 			</div>
 		</div>
     </div>
+
+	<!-- caridokterModal -->
+	<div class="modal fade" id="test" role="dialog" data-backdrop="false">
+	    <div class="modal-dialog modal-lg">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h4 class="modal-title">Nama Dokter</h4>
+	            </div>
+	            <div class="modal-body"> 
+	            	<table class="table table-hover">
+                		<tr>
+                			<th style="width:5%; text-align:center;">No</th>
+                			<th>Kode Dokter</th>
+                			<th>Nama Dokter</th>
+                			<th>Spesialist</th>
+                			<th style="width:5%; text-align:center;">Action</th>
+                		</tr>
+                		<tr>
+                			<td style="width:5%; text-align:center;">1</td>
+                			<td>DP0001</td>
+                			<td>Pande Wira Andika</td>
+                			<td>Komputer</td>
+                			<td style="text-align:center;"><a href="javascript:void(0);" class="edit"><i class="zmdi zmdi-check"></i></a></td>
+                		</tr>
+                    </table>
+                </div>
+	            <div class="modal-footer">
+	                <!-- <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button> -->
+	                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
 </section>
 
 <?php $this->load->view('./modules/layouts/layout-footer'); ?>
