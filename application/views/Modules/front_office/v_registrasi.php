@@ -306,14 +306,14 @@
 	            </div>
 	            <div class="modal-body"> 
 	            	<ul class="nav nav-tabs">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data">Data Sosial</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#datasocial">Data Sosial</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kerabat">Data Kerabat</a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#alergi">Data Alergi</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings">SETTINGS</a></li> -->
                     </ul> 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane in active" id="data">
+                        <div role="tabpanel" class="tab-pane in active" id="datasocial">
                         	<div class="row clearfix">
                         		<div class="col-sm-3">
 							        <div class="form-group">
@@ -601,8 +601,9 @@
 							        </div>
 							    </div>
                         	</div>
-                        	<div class="row clearfix">
-							    <table class="table table-hover">
+                        	<!-- <div class="row clearfix">
+                        	<div class="col-sm-12">
+                        		<table class="table table-hover">
 							    <tr>
 							    	<th colspan="7" style="text-align:center;">Alergi Pasien</th>
 							    </tr>
@@ -621,7 +622,8 @@
                         			<td style="text-align:center;"><a href="javascript:void(0);" class="edit"><i class="zmdi zmdi-edit"></i></a></td>
                         		</tr>
                         		</table>
-							</div>
+                        	</div> 
+							</div> -->
                         </div>
                     </div>
 	            	
