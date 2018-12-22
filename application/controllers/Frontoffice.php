@@ -31,24 +31,22 @@ class Frontoffice extends CI_Controller {
 		$this->load->view('modules/front_office/v_dokter', $data);
 	}
 
-	public function dokter_validasi_kode()
+	public function dokter_validasi_kode($dr_kode)
 	{
-		$response = array('status' => '', 'message' => '');
+		$data_dokter = $this->M_master->getDataDokter(array('dr_kode' => $dr_kode));
 
-		if (isset($_POST)) {
-			
-			$data_dokter = $this->M_master->getDataDokter(array('dr_kode' => $_POST['dr_kode']));
-
-			if ($data_dokter != FALSE) {
-				$response = array('status' => 'true', 'message' => 'data dokter ditemukan');
-			}else{
-				$response = array('status' => 'false', 'message' => 'data dokter tidak ditemukan');
-			}
+		if ($data_dokter != FALSE) {
+			return TRUE;
 		}else{
-			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+			return FALSE;
 		}
+	}
 
-		echo json_encode($response);
+	public function dokter_list()
+	{
+		$data['dokters'] = $this->M_master->getDataDokter(array());
+
+		$this->load->view('modules/front_office/v_dokter_tables', $data);
 	}
 
 	public function dokter_add()
@@ -57,35 +55,42 @@ class Frontoffice extends CI_Controller {
 
 		if (isset($_POST)) {
 			
-			//print_r($_POST);
-			// tangkap nilai dari post
-			$data_dokter = array(
+			$dokter_validasi_kode = $this->dokter_validasi_kode($_POST['dr_kode']);
 
-				'dr_kode' => $_POST['dr_kode'],
-				'dr_nama' => $_POST['dr_nama'],
-				'dr_nama_lengkap' => $_POST['dr_nama_lengkap'],
-				'dr_gelar' => $_POST['dr_gelar'],
-				'dr_tlp' => $_POST['dr_tlp'],
-				'dr_alamat' => $_POST['dr_alamat'],
-				'dr_email' => $_POST['dr_email'],
-				'dr_status' => 'aktif',
-				'dr_insertedDate' => date('y-m-d')
-			);
+			if ($dokter_validasi_kode == TRUE) {
 
-			// input data ke database
-			$input_dokter = $this->M_master->insertDokter($data_dokter);
-
-			// kondisi seletah response dari model
-			if ($input_dokter == TRUE) {
-				
-				$response = array ('status' => 'oke', 'message' => 'data dokter berhasil disimpan');
-
+				$response = array('status' => 'false', 'message' => 'kode dokter sudah digunakan');
+			
 			}else{
+				//print_r($_POST);
+				// tangkap nilai dari post
+				$data_dokter = array(
 
-				$response = array ('status' => 'false', 'message' => 'data dokter gagal disimpan, error query, please contact system administrator');
+					'dr_kode' => $_POST['dr_kode'],
+					'dr_nama' => $_POST['dr_nama'],
+					'dr_nama_lengkap' => $_POST['dr_nama_lengkap'],
+					'dr_gelar' => $_POST['dr_gelar'],
+					'dr_tlp' => $_POST['dr_tlp'],
+					'dr_alamat' => $_POST['dr_alamat'],
+					'dr_email' => $_POST['dr_email'],
+					'dr_status' => 'aktif',
+					'dr_insertedDate' => date('y-m-d')
+				);
 
+				// input data ke database
+				$input_dokter = $this->M_master->insertDokter($data_dokter);
+
+				// kondisi seletah response dari model
+				if ($input_dokter == TRUE) {
+					
+					$response = array ('status' => 'true', 'message' => 'data dokter berhasil disimpan');
+
+				}else{
+
+					$response = array ('status' => 'false', 'message' => 'data dokter gagal disimpan, error query, please contact system administrator');
+
+				}
 			}
-
 		}else{
 			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
 		}
