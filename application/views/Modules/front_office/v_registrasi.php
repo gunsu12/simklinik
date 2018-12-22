@@ -72,7 +72,7 @@
 								    <div class="col-sm-4">
 								        <div class="form-group">
 								            <div class="form-line">
-								                <input type="text" name="jenis_kunjungan" class="form-control" placeholder="Jenis Kunjungan" id="jenis_kunjungan">
+								                <input type="text" name="tanggal_register" class="datepicker form-control" placeholder="Tanggal Register" id="tanggalregister" id="tanggal_register">
 								            </div>
 								        </div>
 								    </div>
@@ -107,10 +107,20 @@
 								        </div>
 								    </div>
 								    
-								    <div class="col-sm-12">
+								    <div class="col-sm-4">
 								        <button id="submit" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
 								        <button id="datasosial" class="btn btn-raised bg-grey waves-effect btn-lg" data-toggle="modal" data-target="#datasosialform">Data Sosial Pasien</button>
 								    </div>
+
+								    <div class="col-sm-6">
+								    	<div class="form-group">
+								    	<input type="checkbox" name="kunjunganbaru" id="kunjunganbaru" class="filled-in chk-col-grey">
+				                        <label for="kunjunganbaru">Kunjungan Baru</label>
+				                        <input type="checkbox" name="sudahpernah" id="sudahpernah" class="filled-in chk-col-grey">
+				                        <label for="sudahpernah">Sudah Pernah Berkunjung</label>
+								    	</div>
+				                    </div>
+
 								</div>
                         	<!-- </form>		 -->
                         </div>
@@ -305,59 +315,313 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane in active" id="data">
                         	<div class="row clearfix">
-			            		<div class="col-sm-3">
+                        		<div class="col-sm-3">
 							        <div class="form-group">
 							            <div class="form-line">
-							                <input type="text" name="dr_tgl_lhr" class="datepicker form-control" placeholder="Tanggal Lahir" id="date" id="dr_tgl_lhr">
+							                <input type="text" name="nama_kecil" class="form-control" placeholder="Nama Kecil" id="nama_kecil">
 							            </div>
 							        </div>
 							    </div>
-								    <!-- <div class="col-sm-3">
-								        <div class="form-group drop-custum">
-								            <select class="form-control show-tick">
-								                <option value="">-- Jenis Kelamin --</option>
-								                <option value="10">Male</option>
-								                <option value="20">Female</option>
-								            </select>
-								        </div>
-								    </div> 
-								    <div class="col-sm-3">
-								        <div class="form-group">
-								            <div class="form-line">
-								                <input type="text" name="dr_spesialist" class="form-control" placeholder="Spesialist" id="dr_spesialist">
-								            </div>
-								        </div>
-								    </div>
-								    <div class="col-sm-3">
-								        <div class="form-group">
-								            <div class="form-line">
-								                <input type="text" name="dr_tlp" class="form-control" placeholder="No Telepon" id="dr_tlp">
-								            </div>
-								        </div>
-								    </div>-->
-								   <!--  <div class="col-sm-6">
-								        <div class="form-group">
-								            <div class="form-line">
-								                <input type="text" name="dr_alamat" class="form-control" placeholder="Alamat" id="dr_alamat">
-								            </div>
-								        </div>
-								    </div>
-								    <div class="col-sm-6">
-								        <div class="form-group">
-								            <div class="form-line">
-								                <input type="text" name="dr_email" class="form-control" placeholder="Email" id="dr_email">
-								            </div>
-								        </div>
-								    </div> -->
-	            			</div> 
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap" id="nama_lengkap">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="rm_ibu_kandung" class="form-control" placeholder="RM Ibu Kandung" id="rm_ibu_kandung">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="nama_ibu_kandung" class="form-control" placeholder="Nama Ibu Kandung" id="nama_ibu_kandung">
+							            </div>
+							        </div>
+							    </div>
+                        	</div>
+
+                        	<div class="row clearfix">
+                        		<div class="col-sm-6">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="alamat" class="form-control" placeholder="Alamat" id="alamat">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-3">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kelurahan" class="form-control" placeholder="Keluarahan" id="kelurahan">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-3">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kecamatan" class="form-control" placeholder="Kecamatan" id="kecamatan">
+							            </div>
+							        </div>
+                        		</div>
+                        	</div>	
+
+                        	<div class="row clearfix">
+                        		<div class="col-sm-3">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kabupaten" class="form-control" placeholder="Kota / Kabupaten" id="kabupaten">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kodepos" class="form-control" placeholder="Kode POS" id="kodepos">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="provinsi" class="form-control" placeholder="Provinsi" id="provinsi">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="suku" class="form-control" placeholder="Suku" id="suku">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-3">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kewarganegaraan" class="form-control" placeholder="Kewarganegaraan" id="kewarganegaraan">
+							            </div>
+							        </div>
+                        		</div>
+                        	</div>	
+
+                        	<div class="row clearfix">
+                        		<div class="col-sm-4">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="noid" class="form-control" placeholder="KTP/SIM/Passport/Kitas" id="noid">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-4">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="nokk" class="form-control" placeholder="No Kartu Keluarga" id="nokk">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-4">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="nonpwp" class="form-control" placeholder="No NPWP" id="nonpwp">
+							            </div>
+							        </div>
+                        		</div>
+                        	</div>
+
+                        	<div class="row clearfix">
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="notelp" class="form-control" placeholder="No Telepon" id="notelp">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+							        <div class="form-group drop-custum">
+							            <select class="form-control show-tick">
+							                <option value="">-- Kelamin --</option>
+							                <option value="10">Pria</option>
+							                <option value="20">Wanita</option>
+							            </select>
+							        </div>
+								</div> 
+								<div class="col-sm-2">
+							        <div class="form-group drop-custum">
+							            <select class="form-control show-tick">
+							                <option value="">-- Status --</option>
+							                <option value="10">Belum Menikah</option>
+							                <option value="20">Menikah</option>
+							                <option value="20">Duda</option>
+							                <option value="20">Janda</option>
+							            </select>
+							        </div>
+								</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="agama" class="form-control" placeholder="Agama" id="agama">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="pendidikan" class="form-control" placeholder="Pendidikan" id="pendidikan">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="pekerjaan" class="form-control" placeholder="Pekerjaan" id="pekerjaan">
+							            </div>
+							        </div>
+                        		</div>
+                        	</div>
+
+                        	<div class="row clearfix">
+                        		<div class="col-sm-4">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="tempatlahir" class="form-control" placeholder="Tempat Lahir" id="tempatlahir">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="tanggallahir" class="datepicker form-control" placeholder="Tanggal Lahir" id="tanggallahir" id="tanggallahir">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-2">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="tanggalrm" class="datepicker form-control" placeholder="Tanggal RM" id="tanggalrm" id="tanggalrm">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="goldarah" class="form-control" placeholder="Golongan Darah" id="goldarah">
+							            </div>
+							        </div>
+                        		</div>
+                        		<div class="col-sm-2">
+                        			<div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="beratlahir" class="form-control" placeholder="Berat Lahir" id="beratlahir">
+							            </div>
+							        </div>
+                        		</div>
+                        	</div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane in active" id="kerabat">
-                        	
+                        	<div class="row clearfix">
+                        		<div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="nama_kerabat" class="form-control" placeholder="Nama Lengkap" id="nama_kerabat">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="hubungan" class="form-control" placeholder="Hubungan" id="hubungan">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="telp_kerabat" class="form-control" placeholder="No Telepon" id="telp_kerabat">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-3">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="ktp_kerabat" class="form-control" placeholder="No KTP" id="ktp_kerabat">
+							            </div>
+							        </div>
+							    </div>
+                        	</div>
+                        	<div class="row clearfix">
+                        		<div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="pekerjaan_kerabat" class="form-control" placeholder="Pekerjaan" id="pekerjaan_kerabat">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="alamat_kerabat" class="form-control" placeholder="Alamat" id="alamat_kerabat">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="kota_kerabat" class="form-control" placeholder="Kabupaten / Kota" id="kota_kerabat">
+							            </div>
+							        </div>
+							    </div>
+                        	</div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane in active" id="alergi">
-                        	
+                        	<div class="row clearfix">
+                        		<div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="alergi_jenis" class="form-control" placeholder="Alergi" id="alergi_jenis">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="alergi_keterangan" class="form-control" placeholder="Keterangan" id="alergi_keterangan">
+							            </div>
+							        </div>
+							    </div>
+							    <div class="col-sm-4">
+							        <div class="form-group">
+							            <div class="form-line">
+							                <input type="text" name="alergi_sejak" class="datepicker form-control" placeholder="Sejak" id="sejakalergi" id="alergi_sejak">
+							            </div>
+							        </div>
+							    </div>
+                        	</div>
+                        	<div class="row clearfix">
+							    <table class="table table-hover">
+							    <tr>
+							    	<th colspan="7" style="text-align:center;">Alergi Pasien</th>
+							    </tr>
+                        		<tr>
+                        			<th style="width:5%; text-align:center;">No</th>
+                        			<th>Alergi</th>
+                        			<th>Keterangan</th>
+                        			<th>Tanggal</th>
+                        			<th style="width:5%; text-align:center;">Action</th>
+                        		</tr>
+                        		<tr>
+                        			<td style="width:5%; text-align:center;">1</td>
+                        			<td>Telor</td>
+                        			<td>Mentah</td>
+                        			<td>22/12/2018</td>
+                        			<td style="text-align:center;"><a href="javascript:void(0);" class="edit"><i class="zmdi zmdi-edit"></i></a></td>
+                        		</tr>
+                        		</table>
+							</div>
                         </div>
                     </div>
 	            	
