@@ -21,6 +21,10 @@
 
 <script src="<?=base_url()?>assets/plugins/select2/dist/js/select2.full.min.js"></script><!-- Select2 -->
 
+<script src="<?=base_url()?>assets/plugins/bootstrap-notify/bootstrap-notify.js"></script> <!-- Bootstrap Notify Plugin Js -->
+
+<script src="<?=base_url()?>assets/js/pages/ui/notifications.js"></script> <!-- Custom Js -->
+
 <script type="text/javascript">
 	// $('.select2').select2()
 

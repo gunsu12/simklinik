@@ -56,22 +56,6 @@
 									    </div>
 									</div>
 									<div class="row clearfix">
-									    <!-- <div class="col-sm-3">
-									        <div class="form-group">
-									            <div class="form-line">
-									                <input type="text" name="dr_tgl_lhr" class="datepicker form-control" placeholder="Tanggal Lahir" id="datetime" id="dr_tgl_lhr">
-									            </div>
-									        </div>
-									    </div> -->
-									    <!-- <div class="col-sm-3">
-									        <div class="form-group drop-custum">
-									            <select class="form-control show-tick">
-									                <option value="">-- Jenis Kelamin --</option>
-									                <option value="10">Male</option>
-									                <option value="20">Female</option>
-									            </select>
-									        </div>
-									    </div> -->
 									    <div class="col-sm-3">
 									        <div class="form-group">
 									            <div class="form-line">
@@ -143,7 +127,9 @@
 			        data: dataSerialize
 			    })
 			    .done(function(data) {
+
 			    	var obj = JSON.parse(data);
+
 			        if (obj.status == 'true') {
 
 			        	$('#dr_kode').val('');
@@ -154,11 +140,14 @@
 						$('#dr_alamat').val('');
 						$('#dr_email').val('');
 
-			        	alert(obj.message);
+
+			        	showNotification('bg-black', obj.message, 'top', 'right', '', '');
+			        	// alert(obj.message);
 
 			        }else{
 			        	// bisa gak dibikin sweet alert untuk yang ini?
-			        	alert(obj.message);
+			        	showNotification('bg-black', obj.message, 'top', 'right', '', '');
+			        	// alert(obj.message);
 			        
 			        }
 			    })
@@ -167,7 +156,12 @@
 			    });
 			
 			}else{
-				alert('nedd to fill dr kode');
+				$.notify({
+					title: "<strong>Peringatan:</strong> ",
+					message: "kode dokter dan nama dokter harus di isi"
+				},{ type: 'danger'});
+			    // showNotification('bg-black', 'kode dokter dan nama dokter harus di isi', 'top', 'right', '', '');
+				// alert('nedd to fill dr kode');
 			}
 		});
 

@@ -19,14 +19,14 @@
 		<?php endforeach ?>
 	<?php else : ?>
 		<tr>
-			<td colspan="4"> tidak ada data dokter </td>
+			<td colspan="5"> tidak ada data dokter </td>
 		</tr>
 	<?php endif ?>
 </table>
-<ul class="pagination center">
+<!-- <ul class="pagination center">
         <li class="page-item disabled"><a class="page-link" href="javascript:void(0);">Sebelumnya</a></li>
         <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
         <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
         <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
         <li class="page-item"><a class="page-link" href="javascript:void(0);">Berikutnya</a></li>
-</ul>
+</ul> -->
