@@ -228,14 +228,16 @@
         <div class="menu">
             <ul class="list">
                 <li class="header">MAIN NAVIGATION</li>
-                <li <?php if ($page_val == 'dash') { echo 'class="active open"'; } ?>><a href="index-2.html"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>                                               
+                <li <?php if ($page_val == 'dash') { echo 'class="active open"'; } ?>><a href="<?=base_url()?>frontoffice"><i class="zmdi zmdi-home"></i><span>Dashboard</span></a></li>                                               
                 <li <?php if ($page_val == 'fo') { echo 'class="active open"'; } ?>><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-calendar-check"></i><span>Front Office</span> </a>
                     <ul class="ml-menu">
-                        <li <?php if ($page_tree == 'master') ?>><a href="javascript:void(0);" class="menu-toggle">Master Data</a>
+                        <li><a href="javascript:void(0);" class="menu-toggle">Master Data</a>
                             <ul class="ml-menu">   
-                                <li><a href="">Dokter</a></li>
-                                <li><a href="">Layanan</a></li>
-                                <li><a href="">Jadwal Dokter</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/dokter">Dokter</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/layanan">Layanan</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/jaminan">Jaminan</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/administrasi">Administrasi</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/jadwal">Jadwal Dokter</a></li>
                             </ul>
                         </li>    
                         <li <?php if ($page_tree == 'registrasi') { echo 'class="active"'; } ?>><a href="">Registrasi</a></li>
