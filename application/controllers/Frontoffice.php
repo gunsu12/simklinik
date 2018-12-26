@@ -49,6 +49,32 @@ class Frontoffice extends CI_Controller {
 		$this->load->view('modules/front_office/v_dokter_tables', $data);
 	}
 
+	public function dokter_list_tunggal()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_dokter = $this->M_master->getDataDokter(array('dr_kode' => $_POST['dr_kode']));
+
+			if ($data_dokter != FALSE) {
+				$response = array(
+					'dr_id' => $data_dokter->dr_id,
+					'dr_kode' => $data_dokter->dr_kode,
+					'dr_nama_lengkap' => $data_dokter->dr_nama_lengkap,
+					'status' => 'true',
+					'message' => 'oke'
+				);
+			}else{
+				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
+			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function dokter_add()
 	{
 		$response = array('status' => '', 'message' => '');
@@ -306,7 +332,25 @@ class Frontoffice extends CI_Controller {
 		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
+		$data['layanans'] = $this->M_master->getDataLayanan(array());
+		$data['dokters'] = $this->M_master->getDataDokter(array());
+
 		$this->load->view('modules/front_office/v_jadwaldokter', $data);
+	}
+
+	public function jadwal_list()
+	{
+		if (isset($_POST)) {
+
+			$data['jadwals'] = $this->M_master->getDataJadwal(array('dr_id' => $_POST['dr_id'], 'layanan_id' => $_POST['layanan_id']));
+
+			$this->load->view('modules/front_office/v_jadwaldokter_tables', $data);
+
+		}else{
+
+			echo "nothing to do here..";
+		}
+		
 	}
 
 	public function registrasi()

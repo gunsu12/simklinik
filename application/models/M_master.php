@@ -146,4 +146,37 @@ class M_master extends CI_Model {
 
 		return $result;
 	}
+
+	public function getDataJadwal($pharam = array())
+	{
+		$this->db->select('*');
+		$this->db->from('t_m_dokter_jadwal');
+
+		if (array_key_exists('dr_id', $pharam)) {
+			if ($pharam['dr_id'] != '') {
+				$this->db->where('dr_id', $pharam['dr_id']);
+			}
+		}
+
+		if (array_key_exists('layanan_id', $pharam)) {
+			if ($pharam['layanan_id'] != '') {
+				$this->db->where('jadwal_id', $pharam['layanan_id']);
+			}
+		}
+
+		if (array_key_exists('jadwal_id', $pharam)) {
+
+			$this->db->where('jadwal_id', $pharam['jadwal_id']);
+			$query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->row():FALSE;
+
+		}else{
+
+			$query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->result():FALSE;
+            
+		}
+
+		return $result;
+	}
 }
