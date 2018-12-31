@@ -34,7 +34,8 @@
 								        <div class="form-group">
 								            <div class="form-line">
 								                <input type="text" class="form-control" placeholder="Nama Dokter" id="nama_dokter_view" value="" readonly>
-								                
+								                <input type="hidden" id="id_dokter" value="">
+								                <input type="hidden" id="kode_dokter" value="">
 								            </div>
 								        </div>
 								    </div>
@@ -54,13 +55,35 @@
 								        </div>
 								    </div>
 								</div>
-								<!-- div id view data jadwal berfungsi untuk response ajax tampilkan jadwal praktek dokter setelah memilih dokter dan memilih layanan, skrip layout ada di v_jadwaldokter_tables.php  -->	
-                        		<div id="view-data-jadwal">
-                        			
-                        		</div>
+								
+								<div class="row clearfix">
+
+								    <table class="table table-hover">
+								    	<thead>
+								    		<tr>
+										    	<th colspan="7" style="text-align:center;">Jadwal Praktek Dokter</th>
+										    </tr>
+								    		<tr>
+			                        			<th style="width:5%; text-align:center;">No</th>
+			                        			<th>Hari</th>
+			                        			<th>Jam Mulai</th>
+			                        			<th>Jam Selesai</th>
+			                        			<th>Maks Pasien</th>
+			                        			<th>Keterangan</th>
+			                        			<th style="width:5%; text-align:center;">Action</th>
+			                        		</tr>
+								    	</thead>
+								    	<tbody>
+			                        		<div id="view-data-jadwal">
+			                        			
+			                        		</div>
+								    	</tbody>
+	                        		</table>
+								</div>
+
 								<div class="row clearfix">
 								    <div class="col-sm-12">
-								        <button type="button" class="btn btn-raised g-bg-cyan right" id="jadwalBtnTambah">Tambah Jadwal</button>
+								        <button type="submit" class="btn btn-raised g-bg-cyan right" data-toggle="modal" data-target="#tambahjadwalModal">Tambah Jadwal</button>
 								    </div>
 								</div>	
 
@@ -140,7 +163,7 @@
 	    </div>
 	</div>
 
-	<!-- tambah jadwal rModal -->
+	<!-- caridokterModal -->
 	<div class="modal fade" id="tambahjadwalModal" role="dialog" data-backdrop="false">
 	    <div class="modal-dialog modal-lg">
 	        <div class="modal-content">
@@ -152,28 +175,28 @@
                 		<div class="col-sm-3">
 					        <div class="form-group">
 					            <div class="form-line">
-					                <input type="text" class="form-control" placeholder="Kode Dokter" id="md_dr_kode" value="" readonly="">
+					                <input type="text" class="form-control" placeholder="Kode Dokter">
 					            </div>
 					        </div>
 					    </div>
 					    <div class="col-sm-6">
 					        <div class="form-group">
 					            <div class="form-line">
-					                <input type="text" class="form-control" placeholder="Nama Lengkap" id="md_dr_nama_lengkap" value="" readonly="">
+					                <input type="text" class="form-control" placeholder="Nama Lengkap">
 					            </div>
 					        </div>
 					    </div>
 					    <div class="col-sm-3">
 					        <div class="form-group drop-custum">
-					            <select class="form-control show-tick" id="hari">
+					            <select class="form-control show-tick">
 					                <option value="">-- Hari --</option>
-					                <option value="Sunday">Minggu</option>
-					                <option value="Monday">Senin</option>
-					                <option value="Tuesday">Selasa</option>
-					                <option value="Wednesday">Rabu</option>
-					                <option value="Thursday">Kamis</option>
-					                <option value="Friday">Jumat</option>
-					                <option value="Saturday" class="col-pink">Sabtu</option>
+					                <option value="1">Senin</option>
+					                <option value="2">Selasa</option>
+					                <option value="3">Rabu</option>
+					                <option value="4">Kamis</option>
+					                <option value="5">Jumat</option>
+					                <option value="6">Sabtu</option>
+					                <option value="7" class="col-pink">Minggu</option>
 					            </select>
 					        </div>
 					    </div>
@@ -196,22 +219,22 @@
 					    <div class="col-sm-3">
 					        <div class="form-group">
 					            <div class="form-line">
-					                <input type="text" class="form-control" placeholder="Max Pasien" id="max_px">
+					                <input type="text" class="form-control" placeholder="Max Pasien">
 					            </div>
 					        </div>
 					    </div>
 					    <div class="col-sm-3">
 					        <div class="form-group">
 					            <div class="form-line">
-					                <input type="text" class="form-control" placeholder="Waktu Per Pasien" id="time_px">
+					                <input type="text" class="form-control" placeholder="Waktu Per Pasien">
 					            </div>
 					        </div>
 					    </div>
 					</div>
                 </div>
 	            <div class="modal-footer">
-	                <button type="button" class="btn btn-link waves-effect" id="jadwalBtnSimpan">Simpan Jadwal</button>
-	                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Kembali</button>
+	                <!-- <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button> -->
+	                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
 	            </div>
 	        </div>
 	    </div>
@@ -221,10 +244,6 @@
 <?php $this->load->view('./modules/layouts/layout-footer'); ?>
 <script type="text/javascript">
 	$(document).ready(function(){
-
-		// inisialisasi global variable
-		var dr_id_a = '', dr_kode_a = '', dr_nama_lengkap_a = '';
-
 		$('.select_doctor').click(function(){
 			var dokter_kode = $(this).attr('id');
 
@@ -239,11 +258,8 @@
 		    	var obj = JSON.parse(data);
 
 		    	$('#nama_dokter_view').val(obj.dr_nama_lengkap);
-
-		    	// store data dokter ke variabel global
-		    	dr_id_a = obj.dr_id;
-		    	dr_kode_a = obj.dr_kode;
-		    	dr_nama_lengkap_a = obj.dr_nama_lengkap;
+		    	$('#kode_dokter').val(obj.dr_kode);
+		    	$('#id_dokter').val(obj.dr_id);
 
 		    	$('#caridokterModal').modal('hide');
 
@@ -254,87 +270,27 @@
 		});
 
 		$('#layanan').change(function(){
-			var dr_id = dr_id_a, layanan_id = $('#layanan').val();
+			var dr_id = $('#id_dokter').attr('id');
+			var layanan_id = $('#layanan').val();
 
 			if (dr_id != '') {
 
-				loadJadwalDokter(dr_id, layanan_id);
+				$.ajax({
+
+					url: '<?=base_url()?>frontoffice/jadwal_list',
+			        type: 'POST',
+			        dataType: 'text',
+			        data: 'layanan_id='+layanan_id+'&dr_id='+dr_id
+
+				}).done(function(data) {
+
+			    	$('#view-data-jadwal').html(data);
+
+			    })
+			    .fail(function (jqXHR, textStatus, error) {
+			          console.log("Post error: " + error);
+			    });
 			}
-		});
-
-		// event ketika button tambah di click, tampilkan modal tambah jadwal
-		$('#jadwalBtnTambah').click(function(){
-
-			var dr_kode = dr_kode_a, dr_nama_lengkap = dr_nama_lengkap_a;
-
-			$('#md_dr_kode').val(dr_kode);
-			$('#md_dr_nama_lengkap').val(dr_nama_lengkap);
-
-		    $('#tambahjadwalModal').modal('show');
-
-		});
-
-		// event ketika button simpan jadwal pada modal tambah jadwal di klik maka akan menyimpan data yang sudah di inputkan oleh user.
-		$('#jadwalBtnSimpan').click(function(){
-
-			var dr_id = dr_id_a, layanan_id = $('#layanan').val(), jadwal_hari = $('#hari').val(), jadwal_time_open = $('#time_open').val(), jadwal_time_close = $('#time_close').val(), jadwal_max_px = $('#max_px').val(), jadwal_time_px = $('#time_px').val();
-
-			var serializeData = 'dr_id='+dr_id+'&layanan_id='+layanan_id+'&jadwal_hari='+jadwal_hari+'&jadwal_jam_open='+jadwal_time_open+'&jadwal_jam_close='+jadwal_time_close+'&jadwal_max_px='+jadwal_max_px+'&jadwal_waktu_per_px='+jadwal_time_px;
-
-			$.ajax({
-
-				url: '<?=base_url()?>frontoffice/jadwal_add',
-		        type: 'POST',
-		        dataType: 'text',
-		        data: serializeData
-
-			}).done(function(data) {
-
-		    	var obj = JSON.parse(data);
-
-		    	console.log(obj);
-
-				$.notify({
-					title: "<strong>Info :</strong> ",
-					message: obj.message
-				},{ type: 'info'});
-
-
-		   		$('#tambahjadwalModal').modal('hide');
-
-		   		loadJadwalDokter(dr_id, layanan_id);
-		    })
-		    .fail(function (jqXHR, textStatus, error) {
-		          console.log("Post error: " + error);
-		    });
-		});
-
-		// $('.jadwalBtnUpdate').click(function(){
-
-		// 	jadwal_id = $(this).attr('id');
-		// 	console.log(jadwal_id);
-			
-		//     $('#updateJadwalModal').modal('show');
-		// });
-		
-		// fungsi untuk get data jadwal dokter berdasarkan parameter dr_id dan layanan_id
-		function loadJadwalDokter(dr_id, layanan_id)
-		{
-			$.ajax({
-
-				url: '<?=base_url()?>frontoffice/jadwal_list',
-		        type: 'POST',
-		        dataType: 'text',
-		        data: 'layanan_id='+layanan_id+'&dr_id='+dr_id
-
-			}).done(function(data) {
-
-		    	$('#view-data-jadwal').html(data);
-
-		    })
-		    .fail(function (jqXHR, textStatus, error) {
-		          console.log("Post error: " + error);
-		    });
-		}
+		})
 	})
 </script>

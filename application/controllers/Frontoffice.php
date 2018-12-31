@@ -342,9 +342,7 @@ class Frontoffice extends CI_Controller {
 	{
 		if (isset($_POST)) {
 
-			$data['jadwals'] = $this->M_master->getDataJadwal(array('dr_id' => $_POST['dr_id'], 'layanan_id' => $_POST['layanan_id'], 'jadwal_deletedDate' => ''));
-			$data['dokter'] = $this->M_master->getDataDokter(array('dr_id' => $_POST['dr_id']));
-			//print_r($data['jadwals']);
+			$data['jadwals'] = $this->M_master->getDataJadwal(array('dr_id' => $_POST['dr_id'], 'layanan_id' => $_POST['layanan_id']));
 
 			$this->load->view('modules/front_office/v_jadwaldokter_tables', $data);
 
@@ -352,134 +350,9 @@ class Frontoffice extends CI_Controller {
 
 			echo "nothing to do here..";
 		}
+		
 	}
 
-	public function jadwal_AjaxFind()
-	{
-		$response = array('status' => '', 'message' => '');
-
-		if (isset($_POST)) {
-			
-			$data_jadwal = $this->M_master->getDataJadwal(array('jadwal_id' => $_POST['jadwal_id']));
-
-			if ($data_jadwal != FALSE) {
-				$response = array(
-					'dr_id' => $data_jadwal->dr_id,
-					'layanan_id' => $data_jadwal->layanan_id,
-					'jadwal_hari' => $data_jadwal->jadwal_hari,
-					'jadwal_jam_open' => date('H:i', strtotime($data_jadwal->jadwal_jam_open)),
-					'jadwal_jam_close' => date('H:i', strtotime($data_jadwal->jadwal_jam_close)),
-					'jadwal_max_px' => $data_jadwal->jadwal_max_px,
-					'jadwal_waktu_per_px' => $data_jadwal->jadwal_waktu_per_px,
-					'status' => 'true',
-					'message' => 'oke'
-				);
-			}else{
-				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
-			}
-		}else{
-			$response = array('status' => 'false', 'message' => 'nothing to do here..');
-		}
-
-		echo json_encode($response);
-	}
-
-	public function jadwal_add()
-	{
-		$response = array('status' => '', 'message' => '');
-
-		if (isset($_POST)) {
-			
-			// tangkap nilai dari post
-			$data_jadwal = array(
-				'dr_id' => $_POST['dr_id'],
-				'layanan_id' => $_POST['layanan_id'],
-				'jadwal_hari' => $_POST['jadwal_hari'],
-				'jadwal_jam_open' => $_POST['jadwal_jam_open'],
-				'jadwal_jam_close' => $_POST['jadwal_jam_close'],
-				'jadwal_jam_close' => $_POST['jadwal_jam_close'],
-				'jadwal_max_px' => $_POST['jadwal_max_px'],
-				'jadwal_waktu_per_px' => $_POST['jadwal_waktu_per_px'],
-				'jadwal_insertedDate' => date('y-m-d')
-			);
-
-			// input data ke database
-			$input_jadwal = $this->M_master->insertJadwal($data_jadwal);
-
-			// kondisi seletah response dari model
-			if ($input_jadwal == TRUE) {
-				$response = array ('status' => 'true', 'message' => 'data jadwal dokter berhasil disimpan');
-			}else{
-				$response = array ('status' => 'false', 'message' => 'data jadwal dokter gagal disimpan, error query, please contact system administrator');
-			}
-			
-		}else{
-			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
-		}
-
-		echo json_encode($response);
-	}
-
-	public function jadwal_update()
-	{
-		$response = array('status' => '', 'message' => '');
-
-		if (isset($_POST)) {
-			
-			// tangkap nilai dari post
-			$data_jadwal = array(
-				'jadwal_hari' => $_POST['jadwal_hari'],
-				'jadwal_jam_open' => $_POST['jadwal_jam_open'],
-				'jadwal_jam_close' => $_POST['jadwal_jam_close'],
-				'jadwal_jam_close' => $_POST['jadwal_jam_close'],
-				'jadwal_max_px' => $_POST['jadwal_max_px'],
-				'jadwal_waktu_per_px' => $_POST['jadwal_waktu_per_px'],
-				'jadwal_updatedDate' => date('y-m-d')
-			);
-
-			// input data ke database
-			$input_jadwal = $this->M_master->updateJadwal($data_jadwal, $_POST['jadwal_id']);
-
-			// kondisi seletah response dari model
-			if ($input_jadwal == TRUE) {
-				$response = array ('status' => 'true', 'message' => 'data jadwal dokter berhasil diubah');
-			}else{
-				$response = array ('status' => 'false', 'message' => 'data jadwal dokter gagal diubah, error query, please contact system administrator');
-			}
-			
-		}else{
-			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
-		}
-
-		echo json_encode($response);
-	}
-
-	public function jadwal_delete()
-	{
-		$response = array('status' => '', 'message' => '');
-
-		if (isset($_POST)) {
-			
-			$data_jadwal = array(
-				'jadwal_deletedDate' => date('y-m-d')
-			);
-
-			// input data ke database
-			$input_jadwal = $this->M_master->updateJadwal($data_jadwal, $_POST['jadwal_id']);
-
-			// kondisi seletah response dari model
-			if ($input_jadwal == TRUE) {
-				$response = array ('status' => 'true', 'message' => 'data jadwal dokter berhasil dihapus');
-			}else{
-				$response = array ('status' => 'false', 'message' => 'data jadwal dokter gagal dihapus, error query, please contact system administrator');
-			}
-			
-		}else{
-			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
-		}
-
-		echo json_encode($response);
-	}
 	public function registrasi()
 	{
 		$data['page_tittle'] = 'Pendaftaran Front Office';
