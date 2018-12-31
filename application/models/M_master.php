@@ -39,6 +39,24 @@ class M_master extends CI_Model {
 		}
 	}
 
+	public function insertJadwal($data_jadwal)
+	{
+		if ($this->db->insert('t_m_dokter_jadwal', $data_jadwal)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function updateJadwal($data_jadwal, $jadwal_id)
+	{
+		if ($this->db->where('jadwal_id', $jadwal_id)->update('t_m_dokter_jadwal', $data_jadwal)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function getDataDokter($pharam = array())
 	{
 		$this->db->select('*');
@@ -160,10 +178,14 @@ class M_master extends CI_Model {
 
 		if (array_key_exists('layanan_id', $pharam)) {
 			if ($pharam['layanan_id'] != '') {
-				$this->db->where('jadwal_id', $pharam['layanan_id']);
+				$this->db->where('layanan_id', $pharam['layanan_id']);
 			}
 		}
 
+		if (array_key_exists('jadwal_deletedDate', $pharam)) {
+			$this->db->where('jadwal_deletedDate IS NULL');
+		}
+		
 		if (array_key_exists('jadwal_id', $pharam)) {
 
 			$this->db->where('jadwal_id', $pharam['jadwal_id']);
