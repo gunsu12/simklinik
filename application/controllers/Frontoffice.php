@@ -142,6 +142,31 @@ class Frontoffice extends CI_Controller {
 		$this->load->view('modules/front_office/v_layanan_tables', $data);
 	}
 
+	public function layanan_AjaxFind()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_layanan = $this->M_master->getDataLayanan(array('layanan_id' => $_POST['layanan_id']));
+
+			if ($data_layanan != FALSE) {
+				$response = array(
+					'layanan_id' => $data_layanan->layanan_id,
+					'layanan_nama' => $data_layanan->layanan_nama,
+					'status' => 'true',
+					'message' => 'oke'
+				);
+			}else{
+				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
+			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function layanan_validasi_kode($l_kode)
 	{
 		$data = $this->M_master->getDataLayanan(array('layanan_kode' => $l_kode));

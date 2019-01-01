@@ -87,21 +87,13 @@
 									    <div class="col-sm-12">
 									    	<p style="text-align:center">Layanan Dokter</p>
 									    	<button type="button" class="btn btn-rimary" id="dokterBtnLayanan"> Tambah Layanan </button>
-									        <table class="table table-hover">
+									        <table class="table table-hover" id="viewSelectedLayanan">
 												<tr>
-													<th style="width:5%; text-align:center;">No</th>
-													<th>Kode Dokter</th>
-													<th>Nama Dokter</th>
-													<th>Spesialist</th>
-													<th style="width:5%; text-align:center;">Action</th>
+													<th>Layanan ID</th>
+													<th>Nama Layanan</th>
+													<th>Action</th>
 												</tr>
-												<tr>
-													<td style="width:5%; text-align:center;"></td>
-													<td></td>
-													<td></td>
-													<td></td>
-													<td style="text-align:center;"><a data-toggle="tab" href="#home" class="edit nav-link"><i class="zmdi zmdi-edit"></i></a></td>
-												</tr>
+
 											</table>
 									    </div>
 									    <div class="col-sm-12">
@@ -147,7 +139,7 @@
 								<td><?=$layanan->layanan_kode?></td>
 								<td><?=$layanan->layanan_nama?></td>
 								<td><?=ucfirst($layanan->layanan_status)?></td>
-								<td style="text-align:center;"><a href="javascript:void(0);" class="edit select_layanan" id="<?=$layanan->layanan_kode?>"><i class="zmdi zmdi-check"></i></a></td>
+								<td style="text-align:center;"><a href="javascript:void(0);" class="edit select_layanan" id="<?=$layanan->layanan_id?>"><i class="zmdi zmdi-check"></i></a></td>
 							</tr>
 						<?php endforeach ?>
 					<?php else : ?>
@@ -169,7 +161,8 @@
 	$(document).ready(function(){
 
 		var layananSelectedList = [];
-		
+		loadJsonToRow();
+
 		$('#submit').click(function(){
 
 			// alert('a');
@@ -223,8 +216,6 @@
 					title: "<strong>Peringatan:</strong> ",
 					message: "kode dokter dan nama dokter harus di isi"
 				},{ type: 'danger'});
-			    // showNotification('bg-black', 'kode dokter dan nama dokter harus di isi', 'top', 'right', '', '');
-				// alert('nedd to fill dr kode');
 			}
 		});
 
@@ -240,15 +231,121 @@
 
 		$('.select_layanan').click(function(){
 
-			if (layananSelectedList.length == 0) {
-				layananSelectedList[0]['id'] = $(this).attr('id');
-			}else{
-				layananSelectedList[1]['id'] = $(this).attr('id');
-			}
+			var layanan_id = $(this).attr('id');
+
+			$.ajax({
+		        url: '<?=base_url()?>frontoffice/layanan_AjaxFind',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: 'layanan_id='+layanan_id
+		    })
+		    .done(function(data) {
+			    
+			    var obj = JSON.parse(data);
+		    	var item = {};
+				item ["layanan_id"] = layanan_id;
+				item ["layanan_nama"] = obj.layanan_nama;
+
+				if (layananSelectedList.length != 0) {
+
+					var status = false;
+
+					$.each( layananSelectedList, function( key, value ) {
+
+					 	if (layananSelectedList[key].layanan_id == item.layanan_id) {
+					 		status = true;
+					 		return false;
+					 	}else{
+					 		status = false;
+					 	}
+
+					});
+
+					if (status == true) {
+						alert('tidak di push');
+					}else{
+						layananSelectedList.push(item);
+		    			$('#dokterModalLayanan').modal('hide');
+		    			loadJsonToRow();
+					}
+				}else{
+					layananSelectedList.push(item);
+					$('#dokterModalLayanan').modal('hide');
+		    		loadJsonToRow();
+				}
+		    })
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
 
 			console.log(layananSelectedList);
-
-			$('#dokterModalLayanan').modal('hide');
 		});
+
+		$('.hapus_layanan').click(function(){
+			alert('a');
+		});
+
+		function loadJsonToRow()
+		{
+			$('#viewSelectedLayanan').empty();
+
+			var i = 0;
+			$.each( layananSelectedList, function( key, value ) {
+				
+				var record = "<tr><td>"+layananSelectedList[key].layanan_id+"</td><td>"+layananSelectedList[key].layanan_nama+"</td><td><button type='button' class='edit hapus_layanan' id='"+i+"'><i class='zmdi zmdi-check'></button></td></tr>";
+
+
+				$('#viewSelectedLayanan').append(record);
+
+				i++;
+			});
+
+			$('.hapus_layanan').click(function(){
+				var index = $(this).attr('id');
+
+				layananSelectedList.splice(index);
+
+				console.log(layananSelectedList);
+				
+				//loadJsonToRow();
+			});
+			
+		}
+
+		// Builds the HTML Table out of myList.
+		// function buildHtmlTable(selector) {
+		//   var columns = addAllColumnHeaders(myList, selector);
+
+		//   for (var i = 0; i < myList.length; i++) {
+		//     var row$ = $('<tr/>');
+		//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+		//       var cellValue = myList[i][columns[colIndex]];
+		//       if (cellValue == null) cellValue = "";
+		//       row$.append($('<td/>').html(cellValue));
+		//     }
+		//     $(selector).append(row$);
+		//   }
+		// }
+
+		// Adds a header row to the table and returns the set of columns.
+		// Need to do union of keys from all records as some records may not contain
+		// all records.
+		// function addAllColumnHeaders(myList, selector) {
+		//   var columnSet = [];
+		//   var headerTr$ = $('<tr/>');
+
+		//   for (var i = 0; i < myList.length; i++) {
+		//     var rowHash = myList[i];
+		//     for (var key in rowHash) {
+		//       if ($.inArray(key, columnSet) == -1) {
+		//         columnSet.push(key);
+		//         headerTr$.append($('<th/>').html(key));
+		//       }
+		//     }
+		//   }
+		//   $(selector).append(headerTr$);
+
+		//   return columnSet;
+		// }
 	});
 </script>
