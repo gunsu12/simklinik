@@ -48,6 +48,15 @@ class M_master extends CI_Model {
 		}
 	}
 
+	public function insertDokterMappingLayanan($data_dokter)
+	{
+		if ($this->db->insert('t_trs_dokter_layanan', $data_jadwal)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function updateJadwal($data_jadwal, $jadwal_id)
 	{
 		if ($this->db->where('jadwal_id', $jadwal_id)->update('t_m_dokter_jadwal', $data_jadwal)) {

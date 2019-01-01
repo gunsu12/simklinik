@@ -88,11 +88,7 @@
 									    	<p style="text-align:center">Layanan Dokter</p>
 									    	<button type="button" class="btn btn-rimary" id="dokterBtnLayanan"> Tambah Layanan </button>
 									        <table class="table table-hover" id="viewSelectedLayanan">
-												<tr>
-													<th>Layanan ID</th>
-													<th>Nama Layanan</th>
-													<th>Action</th>
-												</tr>
+												
 
 											</table>
 									    </div>
@@ -187,6 +183,8 @@
 			    	var obj = JSON.parse(data);
 
 			        if (obj.status == 'true') {
+
+			        	savelayananSelectedList(dr_kode);
 
 			        	$('#dr_kode').val('');
 						$('#dr_nama').val('');
@@ -288,64 +286,61 @@
 		function loadJsonToRow()
 		{
 			$('#viewSelectedLayanan').empty();
-
+			var record = '';
 			var i = 0;
+
 			$.each( layananSelectedList, function( key, value ) {
-				
-				var record = "<tr><td>"+layananSelectedList[key].layanan_id+"</td><td>"+layananSelectedList[key].layanan_nama+"</td><td><button type='button' class='edit hapus_layanan' id='"+i+"'><i class='zmdi zmdi-check'></button></td></tr>";
+				if (layananSelectedList[key].layanan_id != undefined) {
+					record = "<tr><td>"+layananSelectedList[key].layanan_id+"</td><td>"+layananSelectedList[key].layanan_nama+"</td><td></td></tr>";
 
+					//<button type='button' class='edit hapus_layanan' id='"+layananSelectedList[key].layanan_id+"'><i class='zmdi zmdi-close'></i></button>
 
-				$('#viewSelectedLayanan').append(record);
-
+					$('#viewSelectedLayanan').append(record);
+				}
 				i++;
 			});
 
-			$('.hapus_layanan').click(function(){
-				var index = $(this).attr('id');
+			// $('.hapus_layanan').click(function(){
 
-				layananSelectedList.splice(index);
-
-				console.log(layananSelectedList);
+			// 	var index = $(this).attr('id');
 				
-				//loadJsonToRow();
-			});
+			// 	jQuery.each(layananSelectedList, function(i, val) {
+
+			// 		if(val.layanan_id == index) // delete index
+			// 	   	{
+			// 	    	delete layananSelectedList[i];
+			// 			console.log(layananSelectedList);
+			// 	  	}
+			// 	});
+			// 	// layananSelectedList.splice(index);
+			// 	loadJsonToRow();
+			// });
 			
 		}
 
-		// Builds the HTML Table out of myList.
-		// function buildHtmlTable(selector) {
-		//   var columns = addAllColumnHeaders(myList, selector);
+		function savelayananSelectedList(dr_kode)
+		{
+			$.each( layananSelectedList, function( key, value ) {
 
-		//   for (var i = 0; i < myList.length; i++) {
-		//     var row$ = $('<tr/>');
-		//     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-		//       var cellValue = myList[i][columns[colIndex]];
-		//       if (cellValue == null) cellValue = "";
-		//       row$.append($('<td/>').html(cellValue));
-		//     }
-		//     $(selector).append(row$);
-		//   }
-		// }
+				var dataSerialize = 'dr_kode='+dr_kode+'&layanan_id='+layananSelectedList[key].layanan_id
 
-		// Adds a header row to the table and returns the set of columns.
-		// Need to do union of keys from all records as some records may not contain
-		// all records.
-		// function addAllColumnHeaders(myList, selector) {
-		//   var columnSet = [];
-		//   var headerTr$ = $('<tr/>');
+				$.ajax({
+					url: '<?=base_url()?>frontoffice/dokter_add_mapping_layanan',
+			        type: 'POST',
+			        dataType: 'text',
+			        data: dataSerialize
+				}) 
+				.done(function(data) {
 
-		//   for (var i = 0; i < myList.length; i++) {
-		//     var rowHash = myList[i];
-		//     for (var key in rowHash) {
-		//       if ($.inArray(key, columnSet) == -1) {
-		//         columnSet.push(key);
-		//         headerTr$.append($('<th/>').html(key));
-		//       }
-		//     }
-		//   }
-		//   $(selector).append(headerTr$);
+			    	var obj = JSON.parse(data);
 
-		//   return columnSet;
-		// }
+			       console.log(obj);
+
+			    })
+			    .fail(function (jqXHR, textStatus, error) {
+			          console.log("Post error: " + error);
+			    });
+			});
+		}
 	});
 </script>

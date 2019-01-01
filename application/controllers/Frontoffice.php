@@ -126,6 +126,39 @@ class Frontoffice extends CI_Controller {
 		echo json_encode($response);
 	}
 
+	public function dokter_add_mapping_layanan()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_mapping = array(
+
+				'layanan_id' => $_POST['layanan_id'],
+				'dr_kode' => $_POST['dr_kode'],
+			);
+
+			// input data ke database
+			$data_mapping = $this->M_master->insertDokterMappingLayanan($data_mapping);
+
+			// kondisi seletah response dari model
+			if ($data_mapping == TRUE) {
+				
+				$response = array ('status' => 'true', 'message' => 'mapping dokter berhasil disimpan');
+
+			}else{
+
+				$response = array ('status' => 'false', 'message' => 'mapping dokter gagal disimpan, error query, please contact system administrator');
+
+			}
+			
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function layanan()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
