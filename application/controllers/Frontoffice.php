@@ -28,6 +28,8 @@ class Frontoffice extends CI_Controller {
 		$data['page_val'] = 'fo';
 		$data['page_tree'] = 'master';
 
+		$data['layanans'] = $this->M_master->getDataLayanan(array('deletedDate' => '', 'status' => 'aktif'));
+
 		$this->load->view('modules/front_office/v_dokter', $data);
 	}
 

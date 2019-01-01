@@ -85,6 +85,26 @@
 									        </div>
 									    </div>
 									    <div class="col-sm-12">
+									    	<p style="text-align:center">Layanan Dokter</p>
+									    	<button type="button" class="btn btn-rimary" id="dokterBtnLayanan"> Tambah Layanan </button>
+									        <table class="table table-hover">
+												<tr>
+													<th style="width:5%; text-align:center;">No</th>
+													<th>Kode Dokter</th>
+													<th>Nama Dokter</th>
+													<th>Spesialist</th>
+													<th style="width:5%; text-align:center;">Action</th>
+												</tr>
+												<tr>
+													<td style="width:5%; text-align:center;"></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td style="text-align:center;"><a data-toggle="tab" href="#home" class="edit nav-link"><i class="zmdi zmdi-edit"></i></a></td>
+												</tr>
+											</table>
+									    </div>
+									    <div class="col-sm-12">
 									        <button id="submit" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
 									    </div>
 									</div>
@@ -103,10 +123,53 @@
     </div>
 </section>
 
+<!-- modal untuk add layanan dokter -->
+<div class="modal fade" id="dokterModalLayanan" role="dialog" data-backdrop="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List Layanan</h4>
+            </div>
+            <div class="modal-body"> 	
+        		<table class="table table-hover">
+					<tr>
+						<th style="width:5%; text-align:center;">No</th>
+						<th>Kode Layanan</th>
+						<th>Nama Layanan</th>
+						<th>Status</th>
+						<th style="width:5%; text-align:center;">Action</th>
+					</tr>
+					<?php if ($layanans): ?>
+						<?php $i=1; ?>
+						<?php foreach ($layanans as $layanan): ?>
+							<tr>
+								<td style="width:5%; text-align:center;"><?=$i++?></td>
+								<td><?=$layanan->layanan_kode?></td>
+								<td><?=$layanan->layanan_nama?></td>
+								<td><?=ucfirst($layanan->layanan_status)?></td>
+								<td style="text-align:center;"><a href="javascript:void(0);" class="edit select_layanan" id="<?=$layanan->layanan_kode?>"><i class="zmdi zmdi-check"></i></a></td>
+							</tr>
+						<?php endforeach ?>
+					<?php else : ?>
+						<tr>
+							<td colspan="5"> tidak ada data layanan </td>
+						</tr>
+					<?php endif ?>
+				</table>
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button> -->
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->load->view('./modules/layouts/layout-footer'); ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		var layananSelectedList = [];
+		
 		$('#submit').click(function(){
 
 			// alert('a');
@@ -169,6 +232,23 @@
 			$.get( "<?=base_url()?>frontoffice/dokter_list", function( data ) {
 			  $( "#show-tables" ).html( data );
 			});
+		});
+
+		$('#dokterBtnLayanan').click(function(){
+			$('#dokterModalLayanan').modal('show');
+		});
+
+		$('.select_layanan').click(function(){
+
+			if (layananSelectedList.length == 0) {
+				layananSelectedList[0]['id'] = $(this).attr('id');
+			}else{
+				layananSelectedList[1]['id'] = $(this).attr('id');
+			}
+
+			console.log(layananSelectedList);
+
+			$('#dokterModalLayanan').modal('hide');
 		});
 	});
 </script>
