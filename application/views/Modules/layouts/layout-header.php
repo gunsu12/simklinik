@@ -236,7 +236,7 @@
                                 <li><a href="<?=base_url()?>frontoffice/dokter">Dokter</a></li>
                                 <li><a href="<?=base_url()?>frontoffice/layanan">Layanan</a></li>
                                 <li><a href="<?=base_url()?>frontoffice/jaminan">Jaminan</a></li>
-                                <li><a href="<?=base_url()?>frontoffice/administrasi">Administrasi</a></li>
+                                <li><a href="<?=base_url()?>frontoffice/admin">Administrasi</a></li>
                                 <li><a href="<?=base_url()?>frontoffice/jadwal">Jadwal Dokter</a></li>
                             </ul>
                         </li>    

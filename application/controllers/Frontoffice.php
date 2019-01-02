@@ -47,6 +47,7 @@ class Frontoffice extends CI_Controller {
 	public function dokter_list()
 	{
 		$data['dokters'] = $this->M_master->getDataDokter(array());
+		$data['layanans'] = $this->M_master->getDataLayanan(array());
 
 		$this->load->view('modules/front_office/v_dokter_tables', $data);
 	}
