@@ -548,4 +548,12 @@ class Frontoffice extends CI_Controller {
 
 		$this->load->view('modules/front_office/v_registrasi', $data);
 	}
+	public function booking()
+	{
+		$data['page_tittle'] = 'Pendaftaran Front Office';
+		$data['page_val'] = 'fo';
+		$data['page_tree'] = 'booking';
+
+		$this->load->view('modules/front_office/v_booking', $data);
+	}
 }

@@ -34,6 +34,7 @@
 	$('#sejakalergi').bootstrapMaterialDatePicker({ weekStart : 1, time: false, format : 'DD/MM/YYYY'});
 	$('#datetime').bootstrapMaterialDatePicker({ format : 'YYYY-mm-DD' });
 	$('#tanggalregister').bootstrapMaterialDatePicker({ format : 'dddd DD MMMM YYYY - HH:mm' });
+	$('#tanggalbooking').bootstrapMaterialDatePicker({ weekStart : 1, time: false, format : 'DD/MM/YYYY'});
 	$('#time_open').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm'  });
 	$('#time_close').bootstrapMaterialDatePicker({ date: false, format : 'HH:mm' });
 </script>
