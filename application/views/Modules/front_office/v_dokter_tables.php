@@ -30,3 +30,9 @@
         <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
         <li class="page-item"><a class="page-link" href="javascript:void(0);">Berikutnya</a></li>
 </ul> -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+	})
+</script>

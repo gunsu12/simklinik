@@ -87,8 +87,12 @@
 									    <div class="col-sm-12">
 									    	<p style="text-align:center">Layanan Dokter</p>
 									    	<button type="button" class="btn btn-rimary" id="dokterBtnLayanan"> Tambah Layanan </button>
+									    	<button type="button" class="btn btn-rimary" id="dokterBtnLayananClear"> Clear Layanan Pilihan </button>
 									        <table class="table table-hover" id="viewSelectedLayanan">
-												
+												<tr>
+													<th>Layanan ID</th>
+													<th>Nama Layanan</th>
+												</tr>
 
 											</table>
 									    </div>
@@ -161,7 +165,6 @@
 
 		$('#submit').click(function(){
 
-			// alert('a');
 			var dr_kode = $('#dr_kode').val();
 			var dr_nama = $('#dr_nama').val();
 			var dr_nama_lengkap = $('#dr_nama_lengkap').val();
@@ -194,9 +197,14 @@
 						$('#dr_alamat').val('');
 						$('#dr_email').val('');
 
+						layananSelectedList = [];
 
-			        	showNotification('bg-black', obj.message, 'top', 'right', '', '');
-			        	// alert(obj.message);
+						loadJsonToRow();
+
+						$.notify({
+							title: "<strong>Peringatan:</strong> ",
+							message: obj.message
+						},{ type: 'info'});
 
 			        }else{
 			        	// bisa gak dibikin sweet alert untuk yang ini?
@@ -225,6 +233,12 @@
 
 		$('#dokterBtnLayanan').click(function(){
 			$('#dokterModalLayanan').modal('show');
+		});
+
+		$('#dokterBtnLayananClear').click(function(){
+			layananSelectedList = [];
+
+			loadJsonToRow();
 		});
 
 		$('.select_layanan').click(function(){
@@ -279,9 +293,6 @@
 			console.log(layananSelectedList);
 		});
 
-		$('.hapus_layanan').click(function(){
-			alert('a');
-		});
 
 		function loadJsonToRow()
 		{
@@ -291,7 +302,7 @@
 
 			$.each( layananSelectedList, function( key, value ) {
 				if (layananSelectedList[key].layanan_id != undefined) {
-					record = "<tr><td>"+layananSelectedList[key].layanan_id+"</td><td>"+layananSelectedList[key].layanan_nama+"</td><td></td></tr>";
+					record = "<tr><td>Layanan ID : "+layananSelectedList[key].layanan_id+"</td><td>Nama Layanan : "+layananSelectedList[key].layanan_nama+"</td><td></td></tr>";
 
 					//<button type='button' class='edit hapus_layanan' id='"+layananSelectedList[key].layanan_id+"'><i class='zmdi zmdi-close'></i></button>
 
