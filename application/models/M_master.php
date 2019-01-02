@@ -50,7 +50,7 @@ class M_master extends CI_Model {
 
 	public function insertDokterMappingLayanan($data_dokter)
 	{
-		if ($this->db->insert('t_trs_dokter_layanan', $data_jadwal)) {
+		if ($this->db->insert('t_trs_dokter_layanan', $data_dokter)) {
 			return TRUE;
 		}else{
 			return FALSE;
