@@ -36,21 +36,21 @@
             		<div class="col-sm-3">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode">
+				                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode2" value="">
 				            </div>
 				        </div>
 				    </div>
 				    <div class="col-sm-3">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_nama" class="form-control" placeholder="Nama Singkat" id="dr_nama">
+				                <input type="text" name="dr_nama" class="form-control" placeholder="Nama Singkat" id="dr_nama2" value="">
 				            </div>
 				        </div>
 				    </div>
 				    <div class="col-sm-6">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_nama_lengkap" class="form-control" placeholder="Nama Panggilan" id="dr_nama_lengkap">
+				                <input type="text" name="dr_nama_lengkap" class="form-control" placeholder="Nama Panggilan" id="dr_nama_lengkap2">
 				            </div>
 				        </div>
 				    </div>
@@ -59,28 +59,28 @@
 				    <div class="col-sm-3">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_spesialist" class="form-control" placeholder="Spesialist" id="dr_spesialist">
+				                <input type="text" name="dr_spesialist" class="form-control" placeholder="Spesialist" id="dr_spesialist2">
 				            </div>
 				        </div>
 				    </div>
 				    <div class="col-sm-3">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_tlp" class="form-control" placeholder="No Telepon" id="dr_tlp">
+				                <input type="text" name="dr_tlp" class="form-control" placeholder="No Telepon" id="dr_tlp2">
 				            </div>
 				        </div>
 				    </div>
 				    <div class="col-sm-6">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_alamat" class="form-control" placeholder="Alamat" id="dr_alamat">
+				                <input type="text" name="dr_alamat" class="form-control" placeholder="Alamat" id="dr_alamat2">
 				            </div>
 				        </div>
 				    </div>
 				    <div class="col-sm-6">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_email" class="form-control" placeholder="Email" id="dr_email">
+				                <input type="text" name="dr_email" class="form-control" placeholder="Email" id="dr_email2">
 				            </div>
 				        </div>
 				    </div>
@@ -89,7 +89,7 @@
 				    	<div class="row">
 				    		<div class="col-sm-6">
 						    	<div class="form-group drop-custum">
-						            <select class="form-control" id="l_status">
+						            <select class="form-control" id="l_status2">
 						                <option value="">-- Status Layanan --</option>
 						                <?php if ($layanans): ?>
 											<?php $i=1; ?>
@@ -137,8 +137,37 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
 		$('.dokterBtnUpdate').click(function(){
-			$('#dokterModalUpdate').modal('show');
+
+			var dr_kode = $(this).attr('id');
+
+			$.ajax({
+				url: '<?=base_url()?>frontoffice/dokter_list_tunggal',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: 'dr_kode='+dr_kode
+			}) 
+			.done(function(data) {
+
+		    	var obj = JSON.parse(data);
+
+		    	console.log(obj);
+
+		     	$('#dr_kode2').val(obj.dr_kode);
+				$('#dr_nama2').val(obj.dr_nama);
+				$('#dr_nama_lengkap2').val(obj.dr_nama_lengkap);
+				$('#dr_spesialist2').val(obj.dr_gelar);
+				$('#dr_tlp2').val(obj.dr_tlp);
+				$('#dr_alamat2').val(obj.dr_alamat);
+				$('#dr_email2').val(obj.dr_email);
+		       
+				$('#dokterModalUpdate').modal('show');
+
+		    })
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
 		});
 	})
 </script>

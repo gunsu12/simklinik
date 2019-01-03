@@ -57,9 +57,36 @@ class M_master extends CI_Model {
 		}
 	}
 
+	public function updateLayanan($data_layanan, $layanan_id)
+	{
+		if ($this->db->where('layanan_id', $layanan_id)->update('t_layanan', $data_layanan)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function updateJaminan($data_jaminan, $jaminan_id)
+	{
+		if ($this->db->where('jaminan_id', $jaminan_id)->update('t_jaminan', $data_jaminan)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function updateJadwal($data_jadwal, $jadwal_id)
 	{
 		if ($this->db->where('jadwal_id', $jadwal_id)->update('t_m_dokter_jadwal', $data_jadwal)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
+	public function updateAdmin($data_admin, $admin_id)
+	{
+		if ($this->db->where('admin_id', $admin_id)->update('t_administrasi', $data_admin)) {
 			return TRUE;
 		}else{
 			return FALSE;
@@ -98,6 +125,10 @@ class M_master extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('t_jaminan');
 
+		if (array_key_exists('deletedDate', $pharam)) {
+			$this->db->where('jaminan_deletedDate IS NULL');
+		}
+
 		if (array_key_exists('jaminan_kode', $pharam)) {
 
 			$this->db->where('jaminan_kode', $pharam['jaminan_kode']);
@@ -125,6 +156,11 @@ class M_master extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('t_layanan');
 
+
+		if (array_key_exists('deletedDate', $pharam)) {
+			$this->db->where('layanan_deletedDate IS NULL');
+		}
+
 		if (array_key_exists('layanan_kode', $pharam)) {
 
 			$this->db->where('layanan_kode', $pharam['layanan_kode']);
@@ -151,6 +187,10 @@ class M_master extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->from('t_administrasi');
+
+		if (array_key_exists('deletedDate', $pharam)) {
+			$this->db->where('admin_deletedDate IS NULL');
+		}
 
 		if (array_key_exists('admin_kode', $pharam)) {
 

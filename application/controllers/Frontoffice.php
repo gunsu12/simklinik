@@ -64,7 +64,13 @@ class Frontoffice extends CI_Controller {
 				$response = array(
 					'dr_id' => $data_dokter->dr_id,
 					'dr_kode' => $data_dokter->dr_kode,
+					'dr_nama' => $data_dokter->dr_nama,
 					'dr_nama_lengkap' => $data_dokter->dr_nama_lengkap,
+					'dr_gelar' => $data_dokter->dr_gelar,
+					'dr_tlp' => $data_dokter->dr_tlp,
+					'dr_alamat' => $data_dokter->dr_alamat,
+					'dr_email' => $data_dokter->dr_email,
+					'dr_status' => $data_dokter->dr_status,
 					'status' => 'true',
 					'message' => 'oke'
 				);
@@ -171,7 +177,7 @@ class Frontoffice extends CI_Controller {
 
 	public function layanan_list()
 	{
-		$data['layanans'] = $this->M_master->getDataLayanan(array());
+		$data['layanans'] = $this->M_master->getDataLayanan(array('deletedDate' => ''));
 
 		$this->load->view('modules/front_office/v_layanan_tables', $data);
 	}
@@ -187,7 +193,9 @@ class Frontoffice extends CI_Controller {
 			if ($data_layanan != FALSE) {
 				$response = array(
 					'layanan_id' => $data_layanan->layanan_id,
+					'layanan_kode' => $data_layanan->layanan_kode,
 					'layanan_nama' => $data_layanan->layanan_nama,
+					'layanan_status' => $data_layanan->layanan_status,
 					'status' => 'true',
 					'message' => 'oke'
 				);
@@ -251,6 +259,62 @@ class Frontoffice extends CI_Controller {
 		echo json_encode($response);
 	}
 
+	public function layanan_update()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_layanan = array(
+				'layanan_kode' => $_POST['l_kode'],
+				'layanan_nama' => $_POST['l_nama'],
+				'layanan_status' => $_POST['l_status'],
+				'layanan_updatedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$update_layanan = $this->M_master->updateLayanan($data_layanan, $_POST['layanan_id']);
+
+			// kondisi seletah response dari model
+			if ($update_layanan == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data layanan berhasil disimpan');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data layanan gagal disimpan, error query, please contact system administrator');
+			}
+			
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function layanan_delete()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_layanan = array(
+				'layanan_deletedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$input_layanan = $this->M_master->updateLayanan($data_layanan, $_POST['layanan_id']);
+
+			// kondisi seletah response dari model
+			if ($input_layanan == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data layanan berhasil dihapus');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data layanan gagal dihapus, error query, please contact system administrator');
+			}
+			
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);	
+	}
 
 	public function jaminan()
 	{
@@ -263,9 +327,38 @@ class Frontoffice extends CI_Controller {
 
 	public function jaminan_list()
 	{
-		$data['jaminans'] = $this->M_master->getDataJaminan(array());
+		$data['jaminans'] = $this->M_master->getDataJaminan(array('deletedDate' => ''));
 
 		$this->load->view('modules/front_office/v_jaminan_tables', $data);
+	}
+
+	public function jaminan_ajaxFind()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_jaminan = $this->M_master->getDataJaminan(array('jaminan_kode' => $_POST['jaminan_kode']));
+
+			if ($data_jaminan != FALSE) {
+				$response = array(
+					'jaminan_id' => $data_jaminan->jaminan_id,
+					'jaminan_kode' => $data_jaminan->jaminan_kode,
+					'jaminan_nama' => $data_jaminan->jaminan_nama,
+					'jaminan_status' => $data_jaminan->jaminan_status,
+					'jaminan_potongan_tindakan' => $data_jaminan->jaminan_potongan_tindakan,
+					'jaminan_potongan_obat' => $data_jaminan->jaminan_potongan_obat,
+					'status' => 'true',
+					'message' => 'oke'
+				);
+			}else{
+				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
+			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
 	}
 
 	public function jaminan_validasi_kode($j_kode)
@@ -320,6 +413,63 @@ class Frontoffice extends CI_Controller {
 		echo json_encode($response);
 	}
 
+	public function jaminan_update()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_jaminan = array(
+				'jaminan_kode' => $_POST['j_kode'],
+				'jaminan_nama' => $_POST['j_nama'],
+				'jaminan_status' => $_POST['j_status'],
+				'jaminan_potongan_tindakan' => $_POST['j_pt_tind'],
+				'jaminan_potongan_obat' => $_POST['j_pt_obat'],
+				'jaminan_updatedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$input_jaminan = $this->M_master->updateJaminan($data_jaminan, $_POST['jaminan_id']);
+
+			// kondisi seletah response dari model
+			if ($input_jaminan == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data jaminan berhasil diubah');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data jaminan gagal diubah, error query, please contact system administrator');
+			}
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function jaminan_delete()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_jaminan = array(
+				'jaminan_deletedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$input_jaminan = $this->M_master->updateJaminan($data_jaminan, $_POST['jaminan_id']);
+
+			// kondisi seletah response dari model
+			if ($input_jaminan == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data jaminan berhasil dihapus');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data jaminan gagal dihapus, error query, please contact system administrator');
+			}
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function admin()
 	{
 		$data['page_tittle'] = 'Dashboard Front Office';
@@ -329,9 +479,37 @@ class Frontoffice extends CI_Controller {
 		$this->load->view('modules/front_office/v_admin', $data);
 	}
 
+	public function admin_AjaxFind()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$data_admin = $this->M_master->getDataAdmin(array('admin_id' => $_POST['admin_id']));
+
+			if ($data_admin != FALSE) {
+				$response = array(
+					'admin_id' => $data_admin->admin_id,
+					'admin_kode' => $data_admin->admin_kode,
+					'admin_nama' => $data_admin->admin_nama,
+					'admin_status' => $data_admin->admin_status,
+					'admin_biaya' => $data_admin->admin_biaya,
+					'status' => 'true',
+					'message' => 'oke'
+				);
+			}else{
+				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
+			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
+	}
+
 	public function admin_list()
 	{
-		$data['admins'] = $this->M_master->getDataAdmin(array());
+		$data['admins'] = $this->M_master->getDataAdmin(array('deletedDate' => ''));
 
 		$this->load->view('modules/front_office/v_admin_tables', $data);
 	}
@@ -380,6 +558,66 @@ class Frontoffice extends CI_Controller {
 					$response = array ('status' => 'false', 'message' => 'data administrasi gagal disimpan, error query, please contact system administrator');
 				}
 			}
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function admin_update()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			// tangkap nilai dari post
+			$data_admin = array(
+				'admin_kode' => $_POST['a_kode'],
+				'admin_nama' => $_POST['a_nama'],
+				'admin_status' => $_POST['a_status'],
+				'admin_biaya' => $_POST['a_biaya'],
+				'admin_updatedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$input_admin = $this->M_master->updateAdmin($data_admin, $_POST['admin_id']);
+
+			// kondisi seletah response dari model
+			if ($input_admin == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data administrasi berhasil disimpan');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data administrasi gagal disimpan, error query, please contact system administrator');
+			}
+			
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function admin_delete()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+		
+			// tangkap nilai dari post
+			$data_admin = array(
+				'admin_deletedDate' => date('y-m-d')
+			);
+
+			// input data ke database
+			$input_admin = $this->M_master->updateAdmin($data_admin, $_POST['admin_id']);
+
+			// kondisi seletah response dari model
+			if ($input_admin == TRUE) {
+				$response = array ('status' => 'true', 'message' => 'data administrasi berhasil disimpan');
+			}else{
+				$response = array ('status' => 'false', 'message' => 'data administrasi gagal disimpan, error query, please contact system administrator');
+			}
+			
 		}else{
 			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
 		}

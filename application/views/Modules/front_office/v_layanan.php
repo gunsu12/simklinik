@@ -72,6 +72,7 @@
 </section>
 
 <?php $this->load->view('./modules/layouts/layout-footer'); ?>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 
