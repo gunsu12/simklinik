@@ -57,6 +57,15 @@ class M_master extends CI_Model {
 		}
 	}
 
+	public function updateDokter($data_dokter, $dr_kode)
+	{
+		if ($this->db->where('dr_kode', $dr_kode)->update('t_dokter', $data_dokter)) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function updateLayanan($data_layanan, $layanan_id)
 	{
 		if ($this->db->where('layanan_id', $layanan_id)->update('t_layanan', $data_layanan)) {
@@ -93,10 +102,24 @@ class M_master extends CI_Model {
 		}
 	}
 
+	public function deleteMappingDokterLayanan($id)
+	{
+		if ($this->db->where('_id', $id)->delete('t_trs_dokter_layanan')) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public function getDataDokter($pharam = array())
 	{
 		$this->db->select('*');
 		$this->db->from('t_dokter');
+
+
+		if (array_key_exists('deletedDate', $pharam)) {
+			$this->db->where('dokter_deletedDate IS NULL');
+		}
 
 		if (array_key_exists('dr_kode', $pharam)) {
 
@@ -238,6 +261,36 @@ class M_master extends CI_Model {
 		if (array_key_exists('jadwal_id', $pharam)) {
 
 			$this->db->where('jadwal_id', $pharam['jadwal_id']);
+			$query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->row():FALSE;
+
+		}else{
+
+			$query = $this->db->get();
+            $result = ($query->num_rows() > 0)?$query->result():FALSE;
+            
+		}
+
+		return $result;
+	}
+
+	public function getDataMappingDokterLayanan($pharam = array())
+	{
+		$this->db->select('*');
+		$this->db->from('t_trs_dokter_layanan');
+		$this->db->join('t_layanan','t_trs_dokter_layanan.layanan_id = t_layanan.layanan_id');
+
+		if (array_key_exists('dr_kode', $pharam)) {
+			$this->db->where('t_trs_dokter_layanan.dr_kode', $pharam['dr_kode']);
+		}
+
+		if (array_key_exists('layanan_id', $pharam)) {
+			$this->db->where('t_trs_dokter_layanan.layanan_id', $pharam['layanan_id']);
+		}
+		
+		if (array_key_exists('_id', $pharam)) {
+
+			$this->db->where('_id', $pharam['_id']);
 			$query = $this->db->get();
             $result = ($query->num_rows() > 0)?$query->row():FALSE;
 

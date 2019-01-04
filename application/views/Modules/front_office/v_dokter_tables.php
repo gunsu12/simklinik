@@ -36,7 +36,7 @@
             		<div class="col-sm-3">
 				        <div class="form-group">
 				            <div class="form-line">
-				                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode2" value="">
+				                <input type="text" name="dr_kode" class="form-control" placeholder="Kode Dokter" id="dr_kode2" value="" readonly="">
 				            </div>
 				        </div>
 				    </div>
@@ -89,7 +89,7 @@
 				    	<div class="row">
 				    		<div class="col-sm-6">
 						    	<div class="form-group drop-custum">
-						            <select class="form-control" id="l_status2">
+						            <select class="form-control" id="l_id2">
 						                <option value="">-- Status Layanan --</option>
 						                <?php if ($layanans): ?>
 											<?php $i=1; ?>
@@ -103,25 +103,20 @@
 						        </div>
 						    </div>
 				    		<div class="col-sm-6">
-						    	<button type="button" class="btn btn-rimary" id="dokterBtnLayanan"> Tambah Layanan </button>
+						    	<button type="button" class="btn btn-rimary" id="dokterBtnTambahLayanan"> Tambah Layanan </button>
 						    </div>
 				    	</div>
 				   		
-				        <table class="table table-hover" id="viewSelectedLayanan">
-							<tr>
-								<th>Layanan ID</th>
-								<th>Nama Layanan</th>
-							</tr>
-
-						</table>
+				      	<div id="loadDataMappingDokterLayanan">
+				      		
+				      	</div>
 				    </div>
 				    <div class="col-sm-12">
 				    </div>
 				</div>
             </div>
             <div class="modal-footer">
-            	 <button id="button" class="btn btn-raised g-bg-cyan btn-lg">Simpan</button>
-                <!-- <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button> -->
+            	<button type="button" class="btn btn-raised g-bg-cyan btn-sm" id="dokterBtnUpdateSave">Update</button>
                 <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
             </div>
         </div>
@@ -136,11 +131,12 @@
 </ul> -->
 
 <script type="text/javascript">
+
 	$(document).ready(function(){
 
+		var dr_kode = '';
 		$('.dokterBtnUpdate').click(function(){
-
-			var dr_kode = $(this).attr('id');
+			dr_kode = $(this).attr('id');
 
 			$.ajax({
 				url: '<?=base_url()?>frontoffice/dokter_list_tunggal',
@@ -152,8 +148,6 @@
 
 		    	var obj = JSON.parse(data);
 
-		    	console.log(obj);
-
 		     	$('#dr_kode2').val(obj.dr_kode);
 				$('#dr_nama2').val(obj.dr_nama);
 				$('#dr_nama_lengkap2').val(obj.dr_nama_lengkap);
@@ -161,7 +155,9 @@
 				$('#dr_tlp2').val(obj.dr_tlp);
 				$('#dr_alamat2').val(obj.dr_alamat);
 				$('#dr_email2').val(obj.dr_email);
-		       
+		       	
+		       	showMappingDokterLayanan(obj.dr_kode);
+
 				$('#dokterModalUpdate').modal('show');
 
 		    })
@@ -169,5 +165,104 @@
 		          console.log("Post error: " + error);
 		    });
 		});
+
+		$('#dokterBtnTambahLayanan').click(function(){
+			
+			var layanan_id = $('#l_id2').val();
+
+			var dataSerialize = 'dr_kode='+dr_kode+'&layanan_id='+layanan_id
+
+			$.ajax({
+				url: '<?=base_url()?>frontoffice/dokter_add_mapping_layanan',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: dataSerialize
+			}) 
+			.done(function(data){  
+
+		    	var obj = JSON.parse(data);
+
+				if (obj.status == 'false') {
+
+					$.notify({
+						title: "<strong>Peringatan:</strong> ",
+						message: obj.message
+					},{ type: 'danger'});
+
+				}else{
+					showMappingDokterLayanan(dr_kode);
+				}
+			})
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
+		});
+
+		$('#dokterBtnUpdateSave').click(function(){
+			
+			var dr_nama = $('#dr_nama2').val();
+			var dr_nama_lengkap = $('#dr_nama_lengkap2').val();
+			var dr_spesialist = $('#dr_spesialist2').val();
+			var dr_tlp = $('#dr_tlp2').val();
+			var dr_alamat = $('#dr_alamat2').val();
+			var dr_email = $('#dr_email2').val();
+			
+			var dataSerialize = 'dr_kode='+dr_kode+'&dr_nama='+dr_nama+'&dr_nama_lengkap='+dr_nama_lengkap+'&dr_gelar='+dr_spesialist+'&dr_tlp='+dr_tlp+'&dr_alamat='+dr_alamat+'&dr_email='+dr_email;
+			$.ajax({
+		        url: '<?=base_url()?>frontoffice/dokter_update',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: dataSerialize
+		    })
+		    .done(function(data) {
+
+		    	var obj = JSON.parse(data);
+
+		        if (obj.status == 'true') {
+
+		        	loadAgainTheTable();
+
+					$.notify({
+						title: "<strong>Info :</strong> ",
+						message: obj.message
+					},{ type: 'info'});
+
+		        }else{
+		        	// bisa gak dibikin sweet alert untuk yang ini?
+		        	showNotification('bg-black', obj.message, 'top', 'right', '', '');
+		        	// alert(obj.message);
+		        
+		        }
+		    })
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
+	
+		});
+
+		function loadAgainTheTable()
+		{
+			$.get( "<?=base_url()?>frontoffice/dokter_list", function( data ) {
+			  $( "#show-tables" ).html( data );
+			});
+		}
+
+		function showMappingDokterLayanan(dr_kode)
+		{
+			$.ajax({
+				url: '<?=base_url()?>frontoffice/getData_mapping_dokter_layanan',
+		        type: 'POST',
+		        dataType: 'text',
+		        data: 'dr_kode='+dr_kode
+			}) 
+			.done(function(data) {
+
+				$('#loadDataMappingDokterLayanan').html(data);
+		    	
+		    })
+		    .fail(function (jqXHR, textStatus, error) {
+		          console.log("Post error: " + error);
+		    });
+		}
 	})
 </script>

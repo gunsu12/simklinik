@@ -47,7 +47,7 @@ class Frontoffice extends CI_Controller {
 	public function dokter_list()
 	{
 		$data['dokters'] = $this->M_master->getDataDokter(array());
-		$data['layanans'] = $this->M_master->getDataLayanan(array());
+		$data['layanans'] = $this->M_master->getDataLayanan(array('deletedDate' => ''));
 
 		$this->load->view('modules/front_office/v_dokter_tables', $data);
 	}
@@ -77,6 +77,67 @@ class Frontoffice extends CI_Controller {
 			}else{
 				$response = array('status' => 'false', 'message' => 'dokter kode not match any data');
 			}
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function getData_mapping_dokter_layanan()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		//$arrayData = array();
+
+		if ($_POST != '') {
+
+			$data['dokter_layanans'] = $this->M_master->getDataMappingDokterLayanan(array('dr_kode' => $_POST['dr_kode']));
+
+			$this->load->view('modules/front_office/v_dokter_tables_mapping_layanan', $data);
+
+			// $dokter_layanans = $this->M_master->getDataMappingDokterLayanan(array('dr_kode' => $_POST['dr_kode']));
+
+
+			// $i = 0;
+
+			// if (is_array($dokter_layanans) || is_object($dokter_layanans))
+			// {
+			//     //print_r($dokter_layanans);
+			// 	foreach ($dokter_layanans as $layanan) {
+			// 		$a = array( $i => array(
+			// 			'_id' => $layanan->_id,
+			// 			'dr_kode' => $layanan->dr_kode,
+			// 			'layanan_id' => $layanan->layanan_id,
+			// 			'layanan_nama' => $layanan->layanan_nama),
+			// 		);
+			// 		$i++;
+
+			// 		array_push($arrayData, $a);
+			// 	}
+			// }
+			
+		}else{
+			$response = array('status' => 'false', 'message' => 'nothing to do here..');
+		}
+		// print_r($response);
+		//echo json_encode($response);
+	}
+
+	public function delete_mapping_dokter_layanan()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+			
+			$delete = $this->M_master->deleteMappingDokterLayanan($_POST['id']);
+
+			if ($delete) {
+				$response = array('status' => 'true', 'message' => 'data berhasil dihapus');
+			}else{
+				$response = array('status' => 'true', 'message' => 'data gagal dihapus');
+			}
+			
 		}else{
 			$response = array('status' => 'false', 'message' => 'nothing to do here..');
 		}
@@ -133,32 +194,90 @@ class Frontoffice extends CI_Controller {
 		echo json_encode($response);
 	}
 
-	public function dokter_add_mapping_layanan()
+	public function dokter_update()
 	{
 		$response = array('status' => '', 'message' => '');
 
 		if (isset($_POST)) {
 			
-			$data_mapping = array(
-
-				'layanan_id' => $_POST['layanan_id'],
-				'dr_kode' => $_POST['dr_kode'],
+			$data_dokter = array(
+				'dr_nama' => $_POST['dr_nama'],
+				'dr_nama_lengkap' => $_POST['dr_nama_lengkap'],
+				'dr_gelar' => $_POST['dr_gelar'],
+				'dr_tlp' => $_POST['dr_tlp'],
+				'dr_alamat' => $_POST['dr_alamat'],
+				'dr_email' => $_POST['dr_email'],
+				'dr_status' => 'aktif',
+				'dr_updatedDate' => date('y-m-d')
 			);
 
 			// input data ke database
-			$data_mapping = $this->M_master->insertDokterMappingLayanan($data_mapping);
+			$input_dokter = $this->M_master->updateDokter($data_dokter, $_POST['dr_kode']);
 
 			// kondisi seletah response dari model
-			if ($data_mapping == TRUE) {
+			if ($input_dokter == TRUE) {
 				
-				$response = array ('status' => 'true', 'message' => 'mapping dokter berhasil disimpan');
+				$response = array ('status' => 'true', 'message' => 'data dokter berhasil diubah');
 
 			}else{
 
-				$response = array ('status' => 'false', 'message' => 'mapping dokter gagal disimpan, error query, please contact system administrator');
+				$response = array ('status' => 'false', 'message' => 'data dokter gagal diubah, error query, please contact system administrator');
 
 			}
+		
+		}else{
+			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
+		}
+
+		echo json_encode($response);
+	}
+
+	public function dokter_add_mapping_layanan()
+	{
+		$response = array('status' => '', 'message' => '');
+
+		if (isset($_POST)) {
+
+			$data_layanans = $this->M_master->getDataMappingDokterLayanan(array('dr_kode' => $_POST['dr_kode'], 'layanan_id' => $_POST['layanan_id']));
+
+			if ($data_layanans) {
+				
+				$validasi = sizeof($data_layanans);
+
+			}else{
+
+				$validasi = 0;
+
+			}
+
+			if ($validasi > 0) {
+				
+				$response = array('status' => 'false', 'message' => 'jangan input layanan yang sudah ada pada mapping dokter ini ..');
+		
+			}else{
+
+				$data_mapping = array(
+
+					'layanan_id' => $_POST['layanan_id'],
+					'dr_kode' => $_POST['dr_kode'],
+				);
+
+				// input data ke database
+				$data_mapping = $this->M_master->insertDokterMappingLayanan($data_mapping);
+
+				// kondisi seletah response dari model
+				if ($data_mapping == TRUE) {
+					
+					$response = array ('status' => 'true', 'message' => 'mapping dokter berhasil disimpan');
+
+				}else{
+
+					$response = array ('status' => 'false', 'message' => 'mapping dokter gagal disimpan, error query, please contact system administrator');
+
+				}
 			
+			}
+
 		}else{
 			$response = array ('status' => 'false', 'message' => 'nothing to do here .. ');
 		}

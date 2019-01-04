@@ -240,8 +240,8 @@
                                 <li><a href="<?=base_url()?>frontoffice/jadwal">Jadwal Dokter</a></li>
                             </ul>
                         </li>    
-                        <li <?php if ($page_tree == 'registrasi') { echo 'class="active"'; } ?>><a href="">Registrasi</a></li>
-                        <li <?php if ($page_tree == 'booking') { echo 'class="active"'; } ?>><a href="">Janji Poliklinik</a></li>
+                        <li <?php if ($page_tree == 'registrasi') { echo 'class="active"'; } ?>><a href="<?=base_url()?>frontoffice/registrasi">Registrasi</a></li>
+                        <li <?php if ($page_tree == 'booking') { echo 'class="active"'; } ?>><a href="<?=base_url()?>frontoffice/booking">Janji Poliklinik</a></li>
                     </ul>
                 </li>
                 <li><a href="javascript:void(0);" class="menu-toggle"><i class="zmdi zmdi-hospital-alt"></i><span>Pharmachy</span> </a>
